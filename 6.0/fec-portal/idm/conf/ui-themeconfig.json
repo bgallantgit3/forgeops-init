@@ -1,0 +1,28 @@
+{
+    "icon" : "favicon.ico",
+    "path" : "",
+    "stylesheets" : [
+        "css/bootstrap-3.3.7-custom.css",
+        "css/structure.css",
+        "css/theme.css"
+    ],
+    "settings" : {
+        "logo" : {
+            "src" : "images/logoFEC.png",
+            "title" : "FECtheme",
+            "alt" : "FEClogoLoggedIn",
+            "height" : "60px",
+            "width" : "60px"
+        },
+        "loginLogo" : {
+            "src" : "images/logoFEC.png",
+            "title" : "FECtheme",
+            "alt" : "FEClogoLoginReg",
+            "height" : "150px",
+            "width" : "150px"
+        },
+        "footer" : {
+            "mailto" : "info@fec.example.com"
+        }
+    }
+}

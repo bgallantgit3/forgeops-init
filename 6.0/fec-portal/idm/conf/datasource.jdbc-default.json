@@ -1,0 +1,25 @@
+{
+    "driverClass" : "org.h2.Driver",
+    "jdbcUrl" : "jdbc:h2:file:&{idm.install.dir}/db/activiti/database;MVCC=FALSE;DB_CLOSE_DELAY=0",
+    "databaseName" : "activiti",
+    "username" : "sa",
+    "password" : {
+        "$crypto" : {
+            "type" : "x-simple-encryption",
+            "value" : {
+                "cipher" : "AES/CBC/PKCS5Padding",
+                "salt" : "4hHd30j19fylUPhzCE7nCg==",
+                "data" : "/um3E2tUICe0uEp2bSoH8w==",
+                "iv" : "JHVGs0jGrvVi+koJTIdO0g==",
+                "key" : "openidm-sym-default",
+                "mac" : "yyI4j1etEY1+HnGFtUNfyQ=="
+            }
+        }
+    },
+    "connectionTimeout" : 30000,
+    "connectionPool" : {
+        "type" : "hikari",
+        "minimumIdle" : 1,
+        "maximumPoolSize" : 5
+    }
+}

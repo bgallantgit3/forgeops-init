@@ -1,0 +1,24 @@
+{
+    "versions" : [
+        {
+            "version" : "1.0",
+            "termsTranslations" : {
+                "en" : "These are the terms and conditions that you must agree to before you can use the services provided by this site.\n\nVersion 1.0\n"
+            },
+            "createDate" : "2018-07-18T18:27:15.562Z"
+        },
+        {
+            "version" : "2.0",
+            "termsTranslations" : {
+                "en" : "Updated 2.0 T&C that you must agree to, to continue to use the service."
+            },
+            "createDate" : "2018-07-18T18:59:28.981Z"
+        }
+    ],
+    "uiConfig" : {
+        "displayName" : "We have updated our terms",
+        "purpose" : "To proceed, accept these terms",
+        "buttonText" : "Accept"
+    },
+    "active" : "2.0"
+}

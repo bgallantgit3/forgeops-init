@@ -1,0 +1,11 @@
+{
+    "enabled" : true,
+    "from" : "idm-welcome-template@example.com",
+    "subject" : {
+        "en" : "Your account has been created"
+    },
+    "message" : {
+        "en" : "<html><body><p>Welcome to IDM. Your username is '{{object.userName}}'.</p></body></html>"
+    },
+    "defaultLocale" : "en"
+}
