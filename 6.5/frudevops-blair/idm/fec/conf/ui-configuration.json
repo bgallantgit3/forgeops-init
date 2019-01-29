@@ -1,0 +1,39 @@
+{
+    "configuration" : {
+        "selfRegistration" : true,
+        "passwordReset" : true,
+        "forgotUsername" : true,
+        "lang" : "en",
+        "passwordResetLink" : "",
+        "roles" : {
+            "openidm-authorized" : "ui-user",
+            "openidm-admin" : "ui-admin"
+        },
+        "notificationTypes" : {
+            "info" : {
+                "name" : "common.notification.types.info",
+                "iconPath" : "images/notifications/info.png"
+            },
+            "warning" : {
+                "name" : "common.notification.types.warning",
+                "iconPath" : "images/notifications/warning.png"
+            },
+            "error" : {
+                "name" : "common.notification.types.error",
+                "iconPath" : "images/notifications/error.png"
+            }
+        },
+        "defaultNotificationType" : "info",
+        "kbaDefinitionEnabled" : false,
+        "kbaEnabled" : true,
+        "kbaVerificationEnabled" : true,
+        "logoutUrl" : "",
+        "amDataEndpoints" : {
+            "baseUrl" : "http://am.example.com:18080/am/json/realms/root/realms/subscribers/users/",
+            "trustedDevices" : "/devices/trusted/",
+            "oauthApplications" : "/oauth2/applications/",
+            "resourceSet" : "/oauth2/resources/sets/",
+            "auditHistory" : "/uma/auditHistory/"
+        }
+    }
+}
