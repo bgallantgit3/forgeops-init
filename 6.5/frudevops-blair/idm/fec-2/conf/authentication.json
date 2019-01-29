@@ -15,31 +15,15 @@
                 "properties" : {
                     "queryOnResource" : "internal/user",
                     "username" : "anonymous",
-                    "password" : {
-                        "$crypto" : {
-                            "type" : "x-simple-encryption",
-                            "value" : {
-                                "cipher" : "AES/CBC/PKCS5Padding",
-                                "stableId" : "openidm-sym-default",
-                                "salt" : "KLCe81fvCc+hLPJjiyOZ2g==",
-                                "data" : "4AkCA7tXQg07KhCn6aRQ5Q==",
-                                "keySize" : 16,
-                                "purpose" : "idm.config.encryption",
-                                "iv" : "YDur8oIN4G4pb5Zb+u82vA==",
-                                "mac" : "X1Z3NzaZ50lCTbtxr0u4yw=="
-                            }
-                        }
-                    },
-                    "defaultUserRoles" : [
-                        "internal/role/openidm-reg"
-                    ]
+                    "password" : "anonymous",
+                    "defaultUserRoles" : [ "internal/role/openidm-reg" ]
                 },
                 "enabled" : true
             },
             {
                 "name" : "MANAGED_USER",
                 "properties" : {
-                    "augmentSecurityContext" : {
+                    "augmentSecurityContext": {
                         "type" : "text/javascript",
                         "source" : "require('auth/customAuthz').setProtectedAttributes(security)"
                     },
@@ -71,7 +55,7 @@
             {
                 "name" : "PASSTHROUGH",
                 "properties" : {
-                    "augmentSecurityContext" : {
+                    "augmentSecurityContext": {
                         "type" : "text/javascript",
                         "file" : "auth/populateAsManagedUser.js"
                     },
