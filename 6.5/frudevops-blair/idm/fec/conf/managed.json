@@ -4,49 +4,26 @@
             "name" : "user",
             "onCreate" : {
                 "type" : "text/javascript",
-                "source" : "require('onCreateUser').setDefaultFields(object);require('onCreateUser').emailUser(object);"
+                "source" : "require('onCreateUser').setDefaultFields(object);require('roles/conditionalRoles').createConditionalGrantsForUser(object, 'roles');require('onCreateUser').emailUser(object);"
             },
             "onUpdate" : {
                 "type" : "text/javascript",
-                "source" : "require('onUpdateUser').preserveLastSync(object, oldObject, request);"
+                "source" : "require('onUpdateUser').preserveLastSync(object, oldObject, request);require('roles/conditionalRoles').updateConditionalGrantsForUser(object, 'roles');require('onUpdateUser').createNotification(object, oldObject);"
+            },
+            "onDelete" : {
+                "type" : "text/javascript",
+                "file" : "onDelete-user-cleanup.js"
             },
             "postDelete" : {
                 "type" : "text/javascript",
-                "source" : "require('postDelete-idp-cleanup').removeConnectedIdpData(oldObject, resourceName, request);require('postDelete-notification-cleanup').removeConnectedNotificationData(oldObject, resourceName, request);"
+                "source" : "require('postDelete-idp-cleanup').removeConnectedIdpData(oldObject, resourceName, request);"
             },
             "schema" : {
-                "id" : "urn:jsonschema:org:forgerock:openidm:managed:api:User",
+                "$schema" : "http://forgerock.org/json-schema#",
+                "type" : "object",
                 "title" : "User",
+                "description" : null,
                 "icon" : "fa-user",
-                "viewable" : true,
-                "$schema" : "http://json-schema.org/draft-03/schema",
-                "order" : [
-                    "_id",
-                    "userName",
-                    "password",
-                    "givenName",
-                    "sn",
-                    "mail",
-                    "description",
-                    "accountStatus",
-                    "telephoneNumber",
-                    "postalAddress",
-                    "address2",
-                    "city",
-                    "postalCode",
-                    "country",
-                    "stateProvince",
-                    "roles",
-                    "manager",
-                    "authzRoles",
-                    "reports",
-                    "effectiveRoles",
-                    "effectiveAssignments",
-                    "lastSync",
-                    "kbaInfo",
-                    "preferences",
-                    "consentedMappings"
-                ],
                 "properties" : {
                     "_id" : {
                         "description" : "User ID",
@@ -54,9 +31,36 @@
                         "viewable" : false,
                         "searchable" : false,
                         "userEditable" : false,
-                        "usageDescription" : "",
+                        "usageDescription" : null,
                         "isPersonal" : false,
                         "policies" : [
+                            {
+                                "policyId" : "cannot-contain-characters",
+                                "params" : {
+                                    "forbiddenChars" : [
+                                        "/"
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "userName" : {
+                        "title" : "Username",
+                        "description" : "Username",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true,
+                        "userEditable" : true,
+                        "minLength" : 1,
+                        "usageDescription" : null,
+                        "isPersonal" : true,
+                        "policies" : [
+                            {
+                                "policyId" : "unique"
+                            },
+                            {
+                                "policyId" : "no-internal-user-conflict"
+                            },
                             {
                                 "policyId" : "cannot-contain-characters",
                                 "params" : {
@@ -76,11 +80,11 @@
                         "minLength" : 8,
                         "userEditable" : true,
                         "encryption" : {
-                            "purpose": "idm.password.encryption"
+                            "purpose" : "idm.password.encryption"
                         },
                         "scope" : "private",
-                        "isProtected": true,
-                        "usageDescription" : "",
+                        "isProtected" : true,
+                        "usageDescription" : null,
                         "isPersonal" : false,
                         "policies" : [
                             {
@@ -107,77 +111,15 @@
                             }
                         ]
                     },
-                    "kbaInfo" : {
-                        "description" : "KBA Info",
-                        "type" : "array",
-                        "userEditable" : true,
-                        "viewable" : false,
-                        "usageDescription" : "",
-                        "isPersonal" : true,
-                        "items" : {
-                            "type" : "object",
-                            "title" : "KBA Info Items",
-                            "properties" : {
-                                "answer" : {
-                                    "description" : "Answer",
-                                    "type" : "string"
-                                },
-                                "customQuestion" : {
-                                    "description" : "Custom question",
-                                    "type" : "string"
-                                },
-                                "questionId" : {
-                                    "description" : "Question ID",
-                                    "type" : "string"
-                                }
-                            },
-                            "order": [
-                                "answer",
-                                "customQuestion",
-                                "questionId"
-                            ],
-                            "required": []
-                        }
-                    },
-                    "preferences" : {
-                        "title" : "Preferences",
-                        "description" : "Preferences",
-                        "viewable" : true,
-                        "searchable" : false,
-                        "userEditable" : true,
-                        "type" : "object",
-                        "usageDescription" : "",
-                        "isPersonal" : false,
-                        "properties" : {
-                            "updates" : {
-                                "description" : "Send me news and updates",
-                                "type" : "boolean"
-                            },
-                            "marketing": {
-                                "description" : "Send me special offers and services",
-                                "type" : "boolean"
-                            }
-                        },
-                        "order": [
-                            "updates",
-                            "marketing"
-                        ],
-                        "required": []
-                    },
-                    "mail" : {
-                        "title" : "Email Address",
-                        "description" : "Email Address",
+                    "givenName" : {
+                        "title" : "First Name",
+                        "description" : "First Name",
                         "viewable" : true,
                         "type" : "string",
                         "searchable" : true,
                         "userEditable" : true,
-                        "usageDescription" : "",
-                        "isPersonal" : true,
-                        "policies" : [
-                            {
-                                "policyId" : "valid-email-address-format"
-                            }
-                        ]
+                        "usageDescription" : null,
+                        "isPersonal" : true
                     },
                     "sn" : {
                         "title" : "Last Name",
@@ -186,8 +128,23 @@
                         "type" : "string",
                         "searchable" : true,
                         "userEditable" : true,
-                        "usageDescription" : "",
+                        "usageDescription" : null,
                         "isPersonal" : true
+                    },
+                    "mail" : {
+                        "title" : "Email Address",
+                        "description" : "Email Address",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true,
+                        "userEditable" : true,
+                        "usageDescription" : null,
+                        "isPersonal" : true,
+                        "policies" : [
+                            {
+                                "policyId" : "valid-email-address-format"
+                            }
+                        ]
                     },
                     "description" : {
                         "title" : "Description",
@@ -196,53 +153,7 @@
                         "type" : "string",
                         "searchable" : true,
                         "userEditable" : true,
-                        "usageDescription" : "",
-                        "isPersonal" : false
-                    },
-                    "address2" : {
-                        "type" : "string",
-                        "title" : "Address 2",
-                        "description" : "Address 2",
-                        "viewable" : true,
-                        "userEditable" : true,
-                        "usageDescription" : "",
-                        "isPersonal" : true
-                    },
-                    "givenName" : {
-                        "title" : "First Name",
-                        "description" : "First Name",
-                        "viewable" : true,
-                        "type" : "string",
-                        "searchable" : true,
-                        "userEditable" : true,
-                        "usageDescription" : "",
-                        "isPersonal" : true
-                    },
-                    "city" : {
-                        "type" : "string",
-                        "title" : "City",
-                        "description" : "City",
-                        "viewable" : true,
-                        "userEditable" : true,
-                        "usageDescription" : "",
-                        "isPersonal" : false
-                    },
-                    "country" : {
-                        "type" : "string",
-                        "title" : "Country",
-                        "description" : "Country",
-                        "viewable" : true,
-                        "userEditable" : true,
-                        "usageDescription" : "",
-                        "isPersonal" : false
-                    },
-                    "postalCode" : {
-                        "type" : "string",
-                        "title" : "Postal Code",
-                        "description" : "Postal Code",
-                        "viewable" : true,
-                        "userEditable" : true,
-                        "usageDescription" : "",
+                        "usageDescription" : null,
                         "isPersonal" : false
                     },
                     "accountStatus" : {
@@ -252,8 +163,90 @@
                         "type" : "string",
                         "searchable" : true,
                         "userEditable" : false,
-                        "usageDescription" : "",
+                        "usageDescription" : null,
                         "isPersonal" : false
+                    },
+                    "telephoneNumber" : {
+                        "type" : "string",
+                        "title" : "Telephone Number",
+                        "description" : "Telephone Number",
+                        "viewable" : true,
+                        "userEditable" : true,
+                        "pattern" : "^\\+?([0-9\\- \\(\\)])*$",
+                        "usageDescription" : null,
+                        "isPersonal" : true
+                    },
+                    "postalAddress" : {
+                        "type" : "string",
+                        "title" : "Address 1",
+                        "description" : "Address 1",
+                        "viewable" : true,
+                        "userEditable" : true,
+                        "usageDescription" : null,
+                        "isPersonal" : true
+                    },
+                    "address2" : {
+                        "type" : "string",
+                        "title" : "Address 2",
+                        "description" : "Address 2",
+                        "viewable" : true,
+                        "userEditable" : true,
+                        "usageDescription" : null,
+                        "isPersonal" : true
+                    },
+                    "city" : {
+                        "type" : "string",
+                        "title" : "City",
+                        "description" : "City",
+                        "viewable" : true,
+                        "userEditable" : true,
+                        "usageDescription" : null,
+                        "isPersonal" : false
+                    },
+                    "postalCode" : {
+                        "type" : "string",
+                        "title" : "Postal Code",
+                        "description" : "Postal Code",
+                        "viewable" : true,
+                        "userEditable" : true,
+                        "usageDescription" : null,
+                        "isPersonal" : false
+                    },
+                    "country" : {
+                        "type" : "string",
+                        "title" : "Country",
+                        "description" : "Country",
+                        "viewable" : true,
+                        "userEditable" : true,
+                        "usageDescription" : null,
+                        "isPersonal" : false
+                    },
+                    "stateProvince" : {
+                        "type" : "string",
+                        "title" : "State/Province",
+                        "description" : "State/Province",
+                        "viewable" : true,
+                        "userEditable" : true,
+                        "usageDescription" : null,
+                        "isPersonal" : false
+                    },
+                    "birthday" : {
+                        "title" : "Birthday",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : true,
+                        "description" : "Enter your birthday to receive special offers on your birthday",
+                        "minLength" : null,
+                        "isVirtual" : false,
+                        "policies" : [
+                            {
+                                "policyId" : "valid-date",
+                                "params" : {
+                                    "valid-date" : "true"
+                                }
+                            }
+                        ]
                     },
                     "roles" : {
                         "description" : "Provisioning Roles",
@@ -262,7 +255,7 @@
                         "viewable" : true,
                         "userEditable" : false,
                         "returnByDefault" : false,
-                        "usageDescription" : "",
+                        "usageDescription" : null,
                         "isPersonal" : false,
                         "type" : "array",
                         "relationshipGrantTemporalConstraintsEnforced" : true,
@@ -282,16 +275,20 @@
                                 "_refProperties" : {
                                     "description" : "Supports metadata within the relationship",
                                     "type" : "object",
-                                    "title" : "Provisioning Roles Items _refProperties",
+                                    "title" : "Role Members Items _refProperties",
                                     "properties" : {
                                         "_id" : {
                                             "description" : "_refProperties object ID",
-                                            "type" : "string"
+                                            "type" : "string",
+                                            "required" : false,
+                                            "propName" : "_id"
                                         },
                                         "_grantType" : {
                                             "description" : "Grant Type",
                                             "type" : "string",
-                                            "label" : "Grant Type"
+                                            "label" : "Grant Type",
+                                            "required" : false,
+                                            "propName" : "_grantType"
                                         }
                                     }
                                 }
@@ -300,7 +297,6 @@
                                 {
                                     "path" : "managed/role",
                                     "label" : "Role",
-                                    "conditionalAssociationField" : "condition",
                                     "query" : {
                                         "queryFilter" : "true",
                                         "fields" : [
@@ -311,6 +307,55 @@
                             ]
                         }
                     },
+                    "manager" : {
+                        "type" : "relationship",
+                        "validate" : true,
+                        "reverseRelationship" : true,
+                        "reversePropertyName" : "reports",
+                        "description" : "Manager",
+                        "title" : "Manager",
+                        "viewable" : true,
+                        "searchable" : false,
+                        "usageDescription" : null,
+                        "isPersonal" : false,
+                        "properties" : {
+                            "_ref" : {
+                                "description" : "References a relationship from a managed object",
+                                "type" : "string"
+                            },
+                            "_refProperties" : {
+                                "description" : "Supports metadata within the relationship",
+                                "type" : "object",
+                                "title" : "Manager _refProperties",
+                                "properties" : {
+                                    "_id" : {
+                                        "description" : "_refProperties object ID",
+                                        "type" : "string",
+                                        "required" : false,
+                                        "propName" : "_id"
+                                    }
+                                }
+                            }
+                        },
+                        "resourceCollection" : [
+                            {
+                                "path" : "managed/user",
+                                "label" : "User",
+                                "query" : {
+                                    "queryFilter" : "userName sw \"hd.\"",
+                                    "fields" : [
+                                        "userName",
+                                        "givenName",
+                                        "sn",
+                                        "mail"
+                                    ],
+                                    "sortKeys" : [ ]
+                                }
+                            }
+                        ],
+                        "userEditable" : false,
+                        "returnByDefault" : false
+                    },
                     "authzRoles" : {
                         "description" : "Authorization Roles",
                         "title" : "Authorization Roles",
@@ -319,7 +364,7 @@
                         "type" : "array",
                         "userEditable" : false,
                         "returnByDefault" : false,
-                        "usageDescription" : "",
+                        "usageDescription" : null,
                         "isPersonal" : false,
                         "items" : {
                             "type" : "relationship",
@@ -349,18 +394,17 @@
                                 {
                                     "path" : "internal/role",
                                     "label" : "Internal Role",
-                                    "conditionalAssociationField" : "condition",
                                     "query" : {
                                         "queryFilter" : "true",
                                         "fields" : [
-                                            "name"
+                                            "_id",
+                                            "description"
                                         ]
                                     }
                                 },
                                 {
                                     "path" : "managed/role",
                                     "label" : "Role",
-                                    "conditionalAssociationField" : "condition",
                                     "query" : {
                                         "queryFilter" : "true",
                                         "fields" : [
@@ -378,7 +422,7 @@
                         "userEditable" : false,
                         "type" : "array",
                         "returnByDefault" : false,
-                        "usageDescription" : "",
+                        "usageDescription" : null,
                         "isPersonal" : false,
                         "items" : {
                             "type" : "relationship",
@@ -395,11 +439,13 @@
                                 "_refProperties" : {
                                     "description" : "Supports metadata within the relationship",
                                     "type" : "object",
-                                    "title" : "Direct Reports Items _refProperties",
+                                    "title" : "Manager _refProperties",
                                     "properties" : {
                                         "_id" : {
                                             "description" : "_refProperties object ID",
-                                            "type" : "string"
+                                            "type" : "string",
+                                            "required" : false,
+                                            "propName" : "_id"
                                         }
                                     }
                                 }
@@ -427,11 +473,11 @@
                         "viewable" : false,
                         "returnByDefault" : true,
                         "isVirtual" : true,
-                        "usageDescription" : "",
+                        "usageDescription" : null,
                         "isPersonal" : false,
                         "onRetrieve" : {
                             "type" : "text/javascript",
-                             "source" : "require('roles/effectiveRoles').calculateEffectiveRoles(object, 'roles');"
+                            "source" : "require('roles/effectiveRoles').calculateEffectiveRoles(object, 'roles');"
                         },
                         "items" : {
                             "type" : "object",
@@ -445,7 +491,7 @@
                         "viewable" : false,
                         "returnByDefault" : true,
                         "isVirtual" : true,
-                        "usageDescription" : "",
+                        "usageDescription" : null,
                         "isPersonal" : false,
                         "onRetrieve" : {
                             "type" : "text/javascript",
@@ -457,105 +503,6 @@
                             "title" : "Effective Assignments Items"
                         }
                     },
-                    "telephoneNumber" : {
-                        "type" : "string",
-                        "title" : "Telephone Number",
-                        "description" : "Telephone Number",
-                        "viewable" : true,
-                        "userEditable" : true,
-                        "pattern" : "^\\+?([0-9\\- \\(\\)])*$",
-                        "usageDescription" : "",
-                        "isPersonal" : true
-                    },
-                    "stateProvince" : {
-                        "type" : "string",
-                        "title" : "State/Province",
-                        "description" : "State/Province",
-                        "viewable" : true,
-                        "userEditable" : true,
-                        "usageDescription" : "",
-                        "isPersonal" : false
-                    },
-                    "postalAddress" : {
-                        "type" : "string",
-                        "title" : "Address 1",
-                        "description" : "Address 1",
-                        "viewable" : true,
-                        "userEditable" : true,
-                        "usageDescription" : "",
-                        "isPersonal" : true
-                    },
-                    "userName" : {
-                        "title" : "Username",
-                        "description" : "Username",
-                        "viewable" : true,
-                        "type" : "string",
-                        "searchable" : true,
-                        "userEditable" : true,
-                        "minLength" : 1,
-                        "usageDescription" : "",
-                        "isPersonal" : true,
-                        "policies" : [
-                            {
-                                "policyId" : "unique"
-                            },
-                            {
-                                "policyId" : "no-internal-user-conflict"
-                            },
-                            {
-                                "policyId" : "cannot-contain-characters",
-                                "params" : {
-                                    "forbiddenChars" : [
-                                        "/"
-                                    ]
-                                }
-                            }
-                        ]
-                    },
-                    "manager" : {
-                        "type" : "relationship",
-                        "validate" : true,
-                        "reverseRelationship" : true,
-                        "reversePropertyName" : "reports",
-                        "description" : "Manager",
-                        "title" : "Manager",
-                        "viewable" : true,
-                        "searchable" : false,
-                        "usageDescription" : "",
-                        "isPersonal" : false,
-                        "properties" : {
-                            "_ref" : {
-                                "description" : "References a relationship from a managed object",
-                                "type" : "string"
-                            },
-                            "_refProperties" : {
-                                "description" : "Supports metadata within the relationship",
-                                "type" : "object",
-                                "title" : "Manager _refProperties",
-                                "properties" : {
-                                    "_id" : {
-                                        "description" : "_refProperties object ID",
-                                        "type" : "string"
-                                    }
-                                }
-                            }
-                        },
-                        "resourceCollection" : [
-                            {
-                                "path" : "managed/user",
-                                "label" : "User",
-                                "query" : {
-                                    "queryFilter" : "true",
-                                    "fields" : [
-                                        "userName",
-                                        "givenName",
-                                        "sn"
-                                    ]
-                                }
-                            }
-                        ],
-                        "userEditable" : false
-                    },
                     "lastSync" : {
                         "description" : "Last Sync timestamp",
                         "title" : "Last Sync timestamp",
@@ -563,7 +510,7 @@
                         "scope" : "private",
                         "viewable" : false,
                         "searchable" : false,
-                        "usageDescription" : "",
+                        "usageDescription" : null,
                         "isPersonal" : false,
                         "properties" : {
                             "effectiveAssignments" : {
@@ -583,8 +530,80 @@
                         "order" : [
                             "effectiveAssignments",
                             "timestamp"
+                        ]
+                    },
+                    "kbaInfo" : {
+                        "description" : "KBA Info",
+                        "type" : "array",
+                        "userEditable" : true,
+                        "viewable" : false,
+                        "usageDescription" : null,
+                        "isPersonal" : true,
+                        "items" : {
+                            "type" : "object",
+                            "title" : "KBA Info Items",
+                            "properties" : {
+                                "answer" : {
+                                    "description" : "Answer",
+                                    "type" : "string"
+                                },
+                                "customQuestion" : {
+                                    "description" : "Custom question",
+                                    "type" : "string"
+                                },
+                                "questionId" : {
+                                    "description" : "Question ID",
+                                    "type" : "string"
+                                }
+                            },
+                            "order" : [
+                                "answer",
+                                "customQuestion",
+                                "questionId"
+                            ],
+                            "required" : [ ]
+                        }
+                    },
+                    "preferences" : {
+                        "title" : "Preferences",
+                        "description" : "Preferences",
+                        "viewable" : true,
+                        "searchable" : false,
+                        "userEditable" : true,
+                        "type" : "object",
+                        "usageDescription" : null,
+                        "isPersonal" : false,
+                        "properties" : {
+                            "marketing" : {
+                                "description" : "Send me marketing special offers and services",
+                                "type" : "boolean",
+                                "title" : "Marketing Offers",
+                                "viewable" : false,
+                                "searchable" : false,
+                                "userEditable" : false,
+                                "isVirtual" : false
+                            },
+                            "updates" : {
+                                "description" : "Send me news and updates",
+                                "type" : "boolean"
+                            },
+                            "birthdayClub" : {
+                                "title" : "Birthday Club",
+                                "type" : "boolean",
+                                "viewable" : true,
+                                "searchable" : false,
+                                "userEditable" : true,
+                                "description" : "Receive special offers on your birthday",
+                                "isVirtual" : false
+                            }
+                        },
+                        "order" : [
+                            "marketing",
+                            "updates",
+                            "birthdayClub"
                         ],
-                        "required": []
+                        "isVirtual" : false,
+                        "nullable" : false
                     },
                     "consentedMappings" : {
                         "title" : "Consented Mappings",
@@ -593,7 +612,7 @@
                         "viewable" : false,
                         "searchable" : false,
                         "userEditable" : true,
-                        "usageDescription" : "",
+                        "usageDescription" : null,
                         "isPersonal" : false,
                         "items" : {
                             "type" : "array",
@@ -631,9 +650,304 @@
                         },
                         "returnByDefault" : false,
                         "isVirtual" : false
+                    },
+                    "idps" : {
+                        "title" : "Identity Providers",
+                        "viewable" : true,
+                        "searchable" : false,
+                        "userEditable" : false,
+                        "returnByDefault" : false,
+                        "type" : "array",
+                        "items" : {
+                            "type" : "relationship",
+                            "reverseRelationship" : true,
+                            "reversePropertyName" : "user",
+                            "notifySelf" : true,
+                            "validate" : true,
+                            "properties" : {
+                                "_ref" : {
+                                    "description" : "References a relationship from a managed object",
+                                    "type" : "string"
+                                },
+                                "_refProperties" : {
+                                    "description" : "Supports metadata within the relationship",
+                                    "type" : "object",
+                                    "title" : "Identity Providers _refProperties",
+                                    "properties" : { }
+                                }
+                            },
+                            "resourceCollection" : [
+                                {
+                                    "path" : "managed/google",
+                                    "label" : "google Info",
+                                    "query" : {
+                                        "queryFilter" : "true",
+                                        "fields" : [
+                                            "sub",
+                                            "name",
+                                            "given_name"
+                                        ],
+                                        "sortKeys" : [
+                                            "sub",
+                                            "name",
+                                            "given_name"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "path" : "managed/facebook",
+                                    "label" : "facebook Info",
+                                    "query" : {
+                                        "queryFilter" : "true",
+                                        "fields" : [
+                                            "id",
+                                            "name",
+                                            "first_name"
+                                        ],
+                                        "sortKeys" : [
+                                            "id",
+                                            "name",
+                                            "first_name"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "path" : "managed/linkedIn",
+                                    "label" : "linkedIn Info",
+                                    "query" : {
+                                        "queryFilter" : "true",
+                                        "fields" : [
+                                            "id",
+                                            "formattedName",
+                                            "emailAddress"
+                                        ],
+                                        "sortKeys" : [
+                                            "id",
+                                            "formattedName",
+                                            "emailAddress"
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "subscribersFavMovie" : {
+                        "title" : "Subscriber's Favorite Movie",
+                        "type" : [
+                            "string",
+                            "null"
+                        ],
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : true,
+                        "description" : "Provide the name of your favorite movie.",
+                        "minLength" : null,
+                        "isVirtual" : false
+                    },
+                    "subscribersAge" : {
+                        "title" : "Subscriber's Age",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : true,
+                        "description" : "Your age is needed to access age appropriate content.",
+                        "minLength" : null,
+                        "isVirtual" : false
+                    },
+                    "subscribersRole" : {
+                        "title" : "Subscriber's Role",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : false,
+                        "description" : "Subscribers who are account owners (parent or adult).",
+                        "minLength" : null,
+                        "isVirtual" : false
+                    },
+                    "subscriptionType" : {
+                        "title" : "Subscriber's Subscription Type",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : false,
+                        "description" : "Type of subscription the subscriber has.",
+                        "minLength" : null,
+                        "isVirtual" : false
+                    },
+                    "subscriptionMembers" : {
+                        "title" : "Subscription Members",
+                        "viewable" : true,
+                        "searchable" : false,
+                        "userEditable" : false,
+                        "returnByDefault" : false,
+                        "description" : "Members sharing the owner subscription.",
+                        "type" : "array",
+                        "items" : {
+                            "type" : "relationship",
+                            "reverseRelationship" : true,
+                            "reversePropertyName" : "mainSubscriberReference",
+                            "validate" : true,
+                            "properties" : {
+                                "_ref" : {
+                                    "type" : "string"
+                                },
+                                "_refProperties" : {
+                                    "type" : "object",
+                                    "properties" : {
+                                        "_id" : {
+                                            "type" : "string",
+                                            "required" : false,
+                                            "propName" : "_id"
+                                        }
+                                    }
+                                }
+                            },
+                            "resourceCollection" : [
+                                {
+                                    "path" : "managed/user",
+                                    "label" : "User",
+                                    "query" : {
+                                        "queryFilter" : "true",
+                                        "fields" : [
+                                            "userName",
+                                            "givenName",
+                                            "sn"
+                                        ],
+                                        "sortKeys" : [ ]
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "mainSubscriberReference" : {
+                        "description" : null,
+                        "title" : "MainSubscriberReference",
+                        "viewable" : true,
+                        "searchable" : false,
+                        "userEditable" : false,
+                        "policies" : [ ],
+                        "returnByDefault" : false,
+                        "minLength" : null,
+                        "pattern" : null,
+                        "type" : "relationship",
+                        "reverseRelationship" : true,
+                        "reversePropertyName" : "subscriptionMembers",
+                        "validate" : true,
+                        "properties" : {
+                            "_ref" : {
+                                "type" : "string"
+                            },
+                            "_refProperties" : {
+                                "type" : "object",
+                                "properties" : {
+                                    "_id" : {
+                                        "type" : "string",
+                                        "required" : false,
+                                        "propName" : "_id"
+                                    }
+                                }
+                            }
+                        },
+                        "resourceCollection" : [
+                            {
+                                "path" : "managed/user",
+                                "label" : "User",
+                                "query" : {
+                                    "queryFilter" : "true",
+                                    "fields" : [
+                                        "userName",
+                                        "givenName",
+                                        "sn"
+                                    ],
+                                    "sortKeys" : [ ]
+                                }
+                            }
+                        ]
+                    },
+                    "penguinDevices" : {
+                        "description" : "An array (list) of peguin devices the user can have.",
+                        "title" : "Penguin Devices",
+                        "viewable" : true,
+                        "searchable" : false,
+                        "userEditable" : false,
+                        "policies" : [ ],
+                        "returnByDefault" : false,
+                        "minLength" : null,
+                        "type" : "array",
+                        "items" : {
+                            "type" : "relationship",
+                            "reverseRelationship" : true,
+                            "reversePropertyName" : "owner",
+                            "validate" : true,
+                            "properties" : {
+                                "_ref" : {
+                                    "type" : "string"
+                                },
+                                "_refProperties" : {
+                                    "type" : "object",
+                                    "properties" : {
+                                        "_id" : {
+                                            "type" : "string",
+                                            "required" : false,
+                                            "propName" : "_id"
+                                        }
+                                    }
+                                }
+                            },
+                            "resourceCollection" : [
+                                {
+                                    "path" : "managed/device",
+                                    "label" : "Device",
+                                    "query" : {
+                                        "queryFilter" : "true",
+                                        "fields" : [
+                                            "serialNumber",
+                                            "model",
+                                            "service"
+                                        ],
+                                        "sortKeys" : [ ]
+                                    }
+                                }
+                            ]
+                        }
                     }
                 },
-                "type" : "object",
+                "order" : [
+                    "_id",
+                    "userName",
+                    "password",
+                    "givenName",
+                    "sn",
+                    "mail",
+                    "description",
+                    "accountStatus",
+                    "telephoneNumber",
+                    "postalAddress",
+                    "address2",
+                    "city",
+                    "postalCode",
+                    "country",
+                    "stateProvince",
+                    "birthday",
+                    "roles",
+                    "manager",
+                    "authzRoles",
+                    "reports",
+                    "effectiveRoles",
+                    "effectiveAssignments",
+                    "lastSync",
+                    "kbaInfo",
+                    "preferences",
+                    "consentedMappings",
+                    "idps",
+                    "subscribersFavMovie",
+                    "subscribersAge",
+                    "subscribersRole",
+                    "subscriptionType",
+                    "subscriptionMembers",
+                    "mainSubscriberReference",
+                    "penguinDevices"
+                ],
                 "required" : [
                     "userName",
                     "givenName",
@@ -642,14 +956,40 @@
                 ]
             },
             "meta" : {
-              "property" : "_meta",
-              "resourceCollection" : "internal/usermeta",
-              "trackedProperties" : [
-                  "createDate",
-                  "lastChanged"
-              ]
+                "property" : "_meta",
+                "resourceCollection" : "internal/usermeta",
+                "trackedProperties" : [
+                    "createDate",
+                    "lastChanged"
+                ]
             },
-            "notifications" : {
+            "actions" : {
+                "unbind" : {
+                    "type" : "text/javascript",
+                    "file" : "ui/unBindBehavior.js",
+                    "apiDescriptor" : {
+                        "parameters" : [
+                            {
+                                "name" : "provider",
+                                "type" : "string",
+                                "required" : true
+                            }
+                        ]
+                    }
+                },
+                "bind" : {
+                    "type" : "text/javascript",
+                    "file" : "ui/bindBehavior.js",
+                    "apiDescriptor" : {
+                        "parameters" : [
+                            {
+                                "name" : "provider",
+                                "type" : "string",
+                                "required" : true
+                            }
+                        ]
+                    }
+                }
             }
         },
         {
@@ -657,6 +997,14 @@
             "onDelete" : {
                 "type" : "text/javascript",
                 "file" : "roles/onDelete-roles.js"
+            },
+            "onCreate" : {
+                "type" : "text/javascript",
+                "source" : "require('roles/conditionalRoles').roleCreate(object);"
+            },
+            "onUpdate" : {
+                "type" : "text/javascript",
+                "source" : "require('roles/conditionalRoles').roleUpdate(oldObject, object);"
             },
             "postCreate" : {
                 "type" : "text/javascript",
@@ -676,7 +1024,7 @@
                 "type" : "object",
                 "title" : "Role",
                 "icon" : "fa-check-square-o",
-                "description" : "",
+                "description" : null,
                 "properties" : {
                     "_id" : {
                         "description" : "Role ID",
@@ -725,20 +1073,22 @@
                                     "properties" : {
                                         "_id" : {
                                             "description" : "_refProperties object ID",
-                                            "type" : "string"
+                                            "type" : "string",
+                                            "required" : false,
+                                            "propName" : "_id"
                                         },
                                         "_grantType" : {
                                             "description" : "Grant Type",
                                             "type" : "string",
-                                            "label" : "Grant Type"
+                                            "label" : "Grant Type",
+                                            "required" : false,
+                                            "propName" : "_grantType"
                                         }
                                     }
                                 }
                             },
                             "resourceCollection" : [
                                 {
-                                    "notify" : true,
-                                    "conditionalAssociation" : true,
                                     "path" : "managed/user",
                                     "label" : "User",
                                     "query" : {
@@ -746,12 +1096,17 @@
                                         "fields" : [
                                             "userName",
                                             "givenName",
-                                            "sn"
-                                        ]
+                                            "sn",
+                                            "subscribersRole",
+                                            "subscriptionType"
+                                        ],
+                                        "sortKeys" : [ ]
                                     }
                                 }
                             ]
-                        }
+                        },
+                        "searchable" : false,
+                        "userEditable" : false
                     },
                     "authzMembers" : {
                         "description" : "Authorization Role Members",
@@ -786,7 +1141,6 @@
                             "resourceCollection" : [
                                 {
                                     "path" : "managed/user",
-                                    "conditionalAssociation" : true,
                                     "label" : "User",
                                     "query" : {
                                         "queryFilter" : "true",
@@ -844,14 +1198,15 @@
                                 }
                             ]
                         },
-                        "notifyRelationships" : ["members"]
+                        "notifyRelationships" : [
+                            "members"
+                        ]
                     },
                     "condition" : {
                         "description" : "A conditional filter for this role",
                         "title" : "Condition",
                         "viewable" : false,
                         "searchable" : false,
-                        "isConditional" : true,
                         "type" : "string"
                     },
                     "temporalConstraints" : {
@@ -876,7 +1231,9 @@
                                 "duration"
                             ]
                         },
-                        "notifyRelationships" : ["members"]
+                        "notifyRelationships" : [
+                            "members"
+                        ]
                     }
                 },
                 "required" : [
@@ -969,9 +1326,11 @@
                                 "name",
                                 "value"
                             ],
-                            "required": []
+                            "required" : [ ]
                         },
-                        "notifyRelationships" : ["roles"]
+                        "notifyRelationships" : [
+                            "roles"
+                        ]
                     },
                     "linkQualifiers" : {
                         "description" : "Conditional link qualifiers to restrict this assignment to.",
@@ -1043,6 +1402,469 @@
                     "attributes",
                     "linkQualifiers",
                     "roles"
+                ]
+            }
+        },
+        {
+            "name" : "google",
+            "title" : "google User Info",
+            "schema" : {
+                "title" : "Google",
+                "type" : "object",
+                "viewable" : true,
+                "properties" : {
+                    "user" : {
+                        "viewable" : true,
+                        "searchable" : false,
+                        "type" : "relationship",
+                        "title" : "User",
+                        "reverseRelationship" : true,
+                        "reversePropertyName" : "idps",
+                        "validate" : true,
+                        "properties" : {
+                            "_ref" : {
+                                "description" : "References a relationship from a managed object",
+                                "type" : "string"
+                            },
+                            "_refProperties" : {
+                                "description" : "Supports metadata within the relationship",
+                                "type" : "object",
+                                "title" : "googleuser _refProperties",
+                                "properties" : { }
+                            }
+                        },
+                        "resourceCollection" : [
+                            {
+                                "path" : "managed/user",
+                                "notify" : true,
+                                "label" : "User",
+                                "query" : {
+                                    "queryFilter" : "true",
+                                    "fields" : [
+                                        "userName"
+                                    ],
+                                    "sortKeys" : [
+                                        "userName"
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "sub" : {
+                        "description" : "ID",
+                        "title" : "ID",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "name" : {
+                        "description" : "Name",
+                        "title" : "Name",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "given_name" : {
+                        "description" : "First Name",
+                        "title" : "First Name",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "family_name" : {
+                        "description" : "Last Name",
+                        "title" : "Last Name",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "picture" : {
+                        "description" : "Profile Picture URL",
+                        "title" : "Profile Picture URL",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "email" : {
+                        "description" : "Email Address",
+                        "title" : "Email Address",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "locale" : {
+                        "description" : "Locale Code",
+                        "title" : "Locale Code",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    }
+                },
+                "order" : [
+                    "sub",
+                    "name",
+                    "given_name",
+                    "family_name",
+                    "picture",
+                    "email",
+                    "locale",
+                    "user"
+                ],
+                "id" : "urn:jsonschema:org:forgerock:openidm:identityProviders:api:Google",
+                "$schema" : "http://json-schema.org/draft-03/schema",
+                "required" : [ ]
+            }
+        },
+        {
+            "name" : "facebook",
+            "title" : "facebook User Info",
+            "schema" : {
+                "title" : "Facebook",
+                "type" : "object",
+                "viewable" : true,
+                "properties" : {
+                    "user" : {
+                        "viewable" : true,
+                        "searchable" : false,
+                        "type" : "relationship",
+                        "title" : "User",
+                        "reverseRelationship" : true,
+                        "reversePropertyName" : "idps",
+                        "validate" : true,
+                        "properties" : {
+                            "_ref" : {
+                                "description" : "References a relationship from a managed object",
+                                "type" : "string"
+                            },
+                            "_refProperties" : {
+                                "description" : "Supports metadata within the relationship",
+                                "type" : "object",
+                                "title" : "facebookuser _refProperties",
+                                "properties" : { }
+                            }
+                        },
+                        "resourceCollection" : [
+                            {
+                                "path" : "managed/user",
+                                "notify" : true,
+                                "label" : "User",
+                                "query" : {
+                                    "queryFilter" : "true",
+                                    "fields" : [
+                                        "userName"
+                                    ],
+                                    "sortKeys" : [
+                                        "userName"
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "id" : {
+                        "description" : "ID",
+                        "title" : "ID",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "name" : {
+                        "description" : "Name",
+                        "title" : "Name",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "first_name" : {
+                        "description" : "First Name",
+                        "title" : "First Name",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "last_name" : {
+                        "description" : "Last Name",
+                        "title" : "Last Name",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "email" : {
+                        "description" : "Email Address",
+                        "title" : "Email Address",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "locale" : {
+                        "description" : "Locale Code",
+                        "title" : "Locale Code",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    }
+                },
+                "order" : [
+                    "id",
+                    "name",
+                    "first_name",
+                    "last_name",
+                    "email",
+                    "locale",
+                    "user"
+                ],
+                "id" : "urn:jsonschema:org:forgerock:openidm:identityProviders:api:Facebook",
+                "$schema" : "http://json-schema.org/draft-03/schema",
+                "required" : [ ]
+            }
+        },
+        {
+            "name" : "linkedIn",
+            "title" : "linkedIn User Info",
+            "schema" : {
+                "title" : "LinkedIn",
+                "type" : "object",
+                "viewable" : true,
+                "properties" : {
+                    "user" : {
+                        "viewable" : true,
+                        "searchable" : false,
+                        "type" : "relationship",
+                        "title" : "User",
+                        "reverseRelationship" : true,
+                        "reversePropertyName" : "idps",
+                        "validate" : true,
+                        "properties" : {
+                            "_ref" : {
+                                "description" : "References a relationship from a managed object",
+                                "type" : "string"
+                            },
+                            "_refProperties" : {
+                                "description" : "Supports metadata within the relationship",
+                                "type" : "object",
+                                "title" : "linkedInuser _refProperties",
+                                "properties" : { }
+                            }
+                        },
+                        "resourceCollection" : [
+                            {
+                                "path" : "managed/user",
+                                "notify" : true,
+                                "label" : "User",
+                                "query" : {
+                                    "queryFilter" : "true",
+                                    "fields" : [
+                                        "userName"
+                                    ],
+                                    "sortKeys" : [
+                                        "userName"
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "id" : {
+                        "description" : "ID",
+                        "title" : "ID",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : false
+                    },
+                    "formattedName" : {
+                        "description" : "Formatted Name",
+                        "title" : "Formatted Name",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "firstName" : {
+                        "description" : "First Name",
+                        "title" : "First Name",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "lastName" : {
+                        "description" : "Last Name",
+                        "title" : "Last Name",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "emailAddress" : {
+                        "description" : "Email Address",
+                        "title" : "Email Address",
+                        "viewable" : true,
+                        "type" : "string",
+                        "searchable" : true
+                    },
+                    "location" : {
+                        "description" : "Location",
+                        "title" : "Location",
+                        "viewable" : true,
+                        "type" : "object",
+                        "searchable" : true,
+                        "properties" : {
+                            "country" : {
+                                "description" : "Country",
+                                "title" : "Country",
+                                "type" : "object",
+                                "properties" : {
+                                    "code" : {
+                                        "description" : "Locale Code",
+                                        "title" : "Locale Code",
+                                        "type" : "string"
+                                    }
+                                }
+                            },
+                            "name" : {
+                                "description" : "Area Name",
+                                "type" : "string",
+                                "title" : "Area Name"
+                            }
+                        }
+                    }
+                },
+                "order" : [
+                    "id",
+                    "formattedName",
+                    "emailAddress",
+                    "firstName",
+                    "lastName",
+                    "location",
+                    "user"
+                ],
+                "id" : "urn:jsonschema:org:forgerock:openidm:identityProviders:api:LinkedIn",
+                "$schema" : "http://json-schema.org/draft-03/schema",
+                "required" : [ ]
+            }
+        },
+        {
+            "name" : "device",
+            "schema" : {
+                "$schema" : "http://forgerock.org/json-schema#",
+                "type" : "object",
+                "title" : "device",
+                "description" : "Schema definition for the device managed object",
+                "icon" : "fa-linux",
+                "properties" : {
+                    "serialNumber" : {
+                        "title" : "Serial Number",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : false,
+                        "description" : "Enter the serial number.",
+                        "minLength" : null,
+                        "isVirtual" : false
+                    },
+                    "manufacturer" : {
+                        "title" : "Manufacturer",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : false,
+                        "description" : "Device manufacturer.",
+                        "minLength" : null,
+                        "isVirtual" : false
+                    },
+                    "model" : {
+                        "title" : "Model",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : false,
+                        "description" : "Device model.",
+                        "minLength" : null,
+                        "isVirtual" : false
+                    },
+                    "brand" : {
+                        "title" : "Brand",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : false,
+                        "description" : "Device brand.",
+                        "minLength" : null,
+                        "isVirtual" : false
+                    },
+                    "service" : {
+                        "title" : "Service",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : false,
+                        "description" : "Subscription service.",
+                        "minLength" : null,
+                        "isVirtual" : false
+                    },
+                    "description" : {
+                        "title" : "Description",
+                        "type" : [
+                            "string",
+                            "null"
+                        ],
+                        "viewable" : true,
+                        "searchable" : false,
+                        "userEditable" : true,
+                        "description" : "Device description.",
+                        "minLength" : null,
+                        "isVirtual" : false
+                    },
+                    "owner" : {
+                        "title" : "Owner",
+                        "type" : "relationship",
+                        "viewable" : true,
+                        "searchable" : false,
+                        "userEditable" : false,
+                        "returnByDefault" : false,
+                        "reverseRelationship" : true,
+                        "reversePropertyName" : "penguinDevices",
+                        "validate" : true,
+                        "properties" : {
+                            "_ref" : {
+                                "type" : "string"
+                            },
+                            "_refProperties" : {
+                                "type" : "object",
+                                "properties" : {
+                                    "_id" : {
+                                        "type" : "string",
+                                        "required" : false,
+                                        "propName" : "_id"
+                                    }
+                                }
+                            }
+                        },
+                        "resourceCollection" : [
+                            {
+                                "path" : "managed/user",
+                                "label" : "User",
+                                "query" : {
+                                    "queryFilter" : "true",
+                                    "fields" : [
+                                        "userName",
+                                        "givenName",
+                                        "sn",
+                                        "subscriptionType"
+                                    ],
+                                    "sortKeys" : [ ]
+                                }
+                            }
+                        ],
+                        "description" : "Owner of the device should be a reference to a single managed/user _id."
+                    }
+                },
+                "order" : [
+                    "serialNumber",
+                    "manufacturer",
+                    "model",
+                    "brand",
+                    "service",
+                    "description",
+                    "owner"
+                ],
+                "required" : [
+                    "serialNumber"
                 ]
             }
         }
