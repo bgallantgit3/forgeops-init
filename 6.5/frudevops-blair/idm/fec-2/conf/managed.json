@@ -45,7 +45,15 @@
                     "lastSync",
                     "kbaInfo",
                     "preferences",
-                    "consentedMappings"
+                    "consentedMappings",
+                    "idps",
+                    "subscribersFavMovie",
+                    "subscribersAge",
+                    "subscribersRole",
+                    "subscriptionType",
+                    "subscriptionMembers",
+                    "mainSubscriberReference",
+                    "penguinDevices"
                 ],
                 "properties" : {
                     "_id" : {
@@ -156,11 +164,21 @@
                             "marketing": {
                                 "description" : "Send me special offers and services",
                                 "type" : "boolean"
+                            },
+                            "birthdayClub" : {
+                                "title" : "Birthday Club",
+                                "type" : "boolean",
+                                "viewable" : true,
+                                "searchable" : false,
+                                "userEditable" : true,
+                                "description" : "Receive special offers on your birthday",
+                                "isVirtual" : false
                             }
                         },
                         "order": [
                             "updates",
-                            "marketing"
+                            "marketing",
+                            "birthdayClub"
                         ],
                         "required": []
                     },
@@ -476,6 +494,24 @@
                         "usageDescription" : "",
                         "isPersonal" : false
                     },
+                    "birthday" : {
+                        "title" : "Birthday",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : true,
+                        "description" : "Enter your birthday to receive special offers on your birthday",
+                        "minLength" : null,
+                        "isVirtual" : false,
+                        "policies" : [
+                            {
+                                "policyId" : "valid-date",
+                                "params" : {
+                                    "valid-date" : "true"
+                                }
+                            }
+                        ]
+                    },
                     "postalAddress" : {
                         "type" : "string",
                         "title" : "Address 1",
@@ -631,6 +667,186 @@
                         },
                         "returnByDefault" : false,
                         "isVirtual" : false
+                    },
+                    "subscribersFavMovie" : {
+                        "title" : "Subscriber's Favorite Movie",
+                        "type" : [
+                            "string",
+                            "null"
+                        ],
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : true,
+                        "description" : "Provide the name of your favorite movie.",
+                        "minLength" : null,
+                        "isVirtual" : false
+                    },
+                    "subscribersAge" : {
+                        "title" : "Subscriber's Age",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : true,
+                        "description" : "Your age is needed to access age appropriate content.",
+                        "minLength" : null,
+                        "isVirtual" : false
+                    },
+                    "subscribersRole" : {
+                        "title" : "Subscriber's Role",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : false,
+                        "description" : "Subscribers who are account owners (parent or adult).",
+                        "minLength" : null,
+                        "isVirtual" : false
+                    },
+                    "subscriptionType" : {
+                        "title" : "Subscriber's Subscription Type",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : false,
+                        "description" : "Type of subscription the subscriber has.",
+                        "minLength" : null,
+                        "isVirtual" : false
+                    },
+                    "subscriptionMembers" : {
+                        "title" : "Subscription Members",
+                        "viewable" : true,
+                        "searchable" : false,
+                        "userEditable" : false,
+                        "returnByDefault" : false,
+                        "description" : "Members sharing the owner subscription.",
+                        "type" : "array",
+                        "items" : {
+                            "type" : "relationship",
+                            "reverseRelationship" : true,
+                            "reversePropertyName" : "mainSubscriberReference",
+                            "validate" : true,
+                            "properties" : {
+                                "_ref" : {
+                                    "type" : "string"
+                                },
+                                "_refProperties" : {
+                                    "type" : "object",
+                                    "properties" : {
+                                        "_id" : {
+                                            "type" : "string",
+                                            "required" : false,
+                                            "propName" : "_id"
+                                        }
+                                    }
+                                }
+                            },
+                            "resourceCollection" : [
+                                {
+                                    "path" : "managed/user",
+                                    "label" : "User",
+                                    "query" : {
+                                        "queryFilter" : "true",
+                                        "fields" : [
+                                            "userName",
+                                            "givenName",
+                                            "sn"
+                                        ],
+                                        "sortKeys" : [ ]
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "mainSubscriberReference" : {
+                        "description" : null,
+                        "title" : "MainSubscriberReference",
+                        "viewable" : true,
+                        "searchable" : false,
+                        "userEditable" : false,
+                        "policies" : [ ],
+                        "returnByDefault" : false,
+                        "minLength" : null,
+                        "pattern" : null,
+                        "type" : "relationship",
+                        "reverseRelationship" : true,
+                        "reversePropertyName" : "subscriptionMembers",
+                        "validate" : true,
+                        "properties" : {
+                            "_ref" : {
+                                "type" : "string"
+                            },
+                            "_refProperties" : {
+                                "type" : "object",
+                                "properties" : {
+                                    "_id" : {
+                                        "type" : "string",
+                                        "required" : false,
+                                        "propName" : "_id"
+                                    }
+                                }
+                            }
+                        },
+                        "resourceCollection" : [
+                            {
+                                "path" : "managed/user",
+                                "label" : "User",
+                                "query" : {
+                                    "queryFilter" : "true",
+                                    "fields" : [
+                                        "userName",
+                                        "givenName",
+                                        "sn"
+                                    ],
+                                    "sortKeys" : [ ]
+                                }
+                            }
+                        ]
+                    },
+                    "penguinDevices" : {
+                        "description" : "An array (list) of peguin devices the user can have.",
+                        "title" : "Penguin Devices",
+                        "viewable" : true,
+                        "searchable" : false,
+                        "userEditable" : false,
+                        "policies" : [ ],
+                        "returnByDefault" : false,
+                        "minLength" : null,
+                        "type" : "array",
+                        "items" : {
+                            "type" : "relationship",
+                            "reverseRelationship" : true,
+                            "reversePropertyName" : "owner",
+                            "validate" : true,
+                            "properties" : {
+                                "_ref" : {
+                                    "type" : "string"
+                                },
+                                "_refProperties" : {
+                                    "type" : "object",
+                                    "properties" : {
+                                        "_id" : {
+                                            "type" : "string",
+                                            "required" : false,
+                                            "propName" : "_id"
+                                        }
+                                    }
+                                }
+                            },
+                            "resourceCollection" : [
+                                {
+                                    "path" : "managed/device",
+                                    "label" : "Device",
+                                    "query" : {
+                                        "queryFilter" : "true",
+                                        "fields" : [
+                                            "serialNumber",
+                                            "model",
+                                            "service"
+                                        ],
+                                        "sortKeys" : [ ]
+                                    }
+                                }
+                            ]
+                        }
                     }
                 },
                 "type" : "object",
@@ -1043,6 +1259,136 @@
                     "attributes",
                     "linkQualifiers",
                     "roles"
+                ]
+            }
+        },
+        {
+            "name" : "device",
+            "schema" : {
+                "$schema" : "http://forgerock.org/json-schema#",
+                "type" : "object",
+                "title" : "device",
+                "description" : "Schema definition for the device managed object",
+                "icon" : "fa-linux",
+                "properties" : {
+                    "serialNumber" : {
+                        "title" : "Serial Number",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : false,
+                        "description" : "Enter the serial number.",
+                        "minLength" : null,
+                        "isVirtual" : false
+                    },
+                    "manufacturer" : {
+                        "title" : "Manufacturer",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : false,
+                        "description" : "Device manufacturer.",
+                        "minLength" : null,
+                        "isVirtual" : false
+                    },
+                    "model" : {
+                        "title" : "Model",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : false,
+                        "description" : "Device model.",
+                        "minLength" : null,
+                        "isVirtual" : false
+                    },
+                    "brand" : {
+                        "title" : "Brand",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : false,
+                        "description" : "Device brand.",
+                        "minLength" : null,
+                        "isVirtual" : false
+                    },
+                    "service" : {
+                        "title" : "Service",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : false,
+                        "description" : "Subscription service.",
+                        "minLength" : null,
+                        "isVirtual" : false
+                    },
+                    "description" : {
+                        "title" : "Description",
+                        "type" : [
+                            "string",
+                            "null"
+                        ],
+                        "viewable" : true,
+                        "searchable" : false,
+                        "userEditable" : true,
+                        "description" : "Device description.",
+                        "minLength" : null,
+                        "isVirtual" : false
+                    },
+                    "owner" : {
+                        "title" : "Owner",
+                        "type" : "relationship",
+                        "viewable" : true,
+                        "searchable" : false,
+                        "userEditable" : false,
+                        "returnByDefault" : false,
+                        "reverseRelationship" : true,
+                        "reversePropertyName" : "penguinDevices",
+                        "validate" : true,
+                        "properties" : {
+                            "_ref" : {
+                                "type" : "string"
+                            },
+                            "_refProperties" : {
+                                "type" : "object",
+                                "properties" : {
+                                    "_id" : {
+                                        "type" : "string",
+                                        "required" : false,
+                                        "propName" : "_id"
+                                    }
+                                }
+                            }
+                        },
+                        "resourceCollection" : [
+                            {
+                                "path" : "managed/user",
+                                "label" : "User",
+                                "query" : {
+                                    "queryFilter" : "true",
+                                    "fields" : [
+                                        "userName",
+                                        "givenName",
+                                        "sn",
+                                        "subscriptionType"
+                                    ],
+                                    "sortKeys" : [ ]
+                                }
+                            }
+                        ],
+                        "description" : "Owner of the device should be a reference to a single managed/user _id."
+                    }
+                },
+                "order" : [
+                    "serialNumber",
+                    "manufacturer",
+                    "model",
+                    "brand",
+                    "service",
+                    "description",
+                    "owner"
+                ],
+                "required" : [
+                    "serialNumber"
                 ]
             }
         }
