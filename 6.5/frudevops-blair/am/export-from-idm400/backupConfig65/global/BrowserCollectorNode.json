@@ -1,0 +1,17 @@
+{
+  "metadata" : {
+    "realm" : null,
+    "amsterVersion" : "6.5.0.1",
+    "entityType" : "BrowserCollectorNode",
+    "entityId" : "BrowserCollectorNode",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "",
+    "_type" : {
+      "_id" : "BrowserCollectorNode",
+      "name" : "BrowserCollectorNode",
+      "collection" : false
+    }
+  }
+}
