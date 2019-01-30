@@ -37,7 +37,7 @@
     "configurationProperties" : {
         "headerPassword" : "password",
         "spaceReplacementString" : "_",
-        "csvFile" : "&{launcher.working.location}/data/MarketingEmailList.csv",
+        "csvFile" : "&{idm.instance.dir}/data/MarketingEmailList.csv",
         "newlineString" : "\n",
         "headerUid" : "uid",
         "quoteCharacter" : "\"",
