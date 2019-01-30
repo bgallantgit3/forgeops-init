@@ -80,7 +80,7 @@
                         "minLength" : 8,
                         "userEditable" : true,
                         "encryption" : {
-                            "purpose" : "idm.password.encryption"
+                            "key" : "openidm-sym-default"
                         },
                         "scope" : "private",
                         "isProtected" : true,
