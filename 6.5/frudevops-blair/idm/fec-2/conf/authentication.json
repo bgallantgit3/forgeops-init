@@ -132,11 +132,11 @@
                         "redirectUri" : "http://openidm.frudevops-myname.example.com:80/",
                         "configClass" : "org.forgerock.oauth.clients.oidc.OpenIDConnectClientConfiguration",
                         "displayIcon" : "forgerock",
-                        "enabled" : true
+                        "enabled" : false
                     },
                     "queryOnResource" : "system/subscribersLDAP/account"
                 },
-                "enabled" : true
+                "enabled" : false
             }
         ]
     }
