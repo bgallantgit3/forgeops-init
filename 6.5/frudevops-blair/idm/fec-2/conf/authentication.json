@@ -43,7 +43,7 @@
                     },
                     "defaultUserRoles" : [ ]
                 },
-                "enabled" : false
+                "enabled" : true 
             },
             {
                 "name" : "INTERNAL_USER",
@@ -68,7 +68,7 @@
                     ],
                     "allowedAuthenticationIdPatterns" : [ ]
                 },
-                "enabled" : false
+                "enabled" : true
             },
             {
                 "name" : "SOCIAL_PROVIDERS",
