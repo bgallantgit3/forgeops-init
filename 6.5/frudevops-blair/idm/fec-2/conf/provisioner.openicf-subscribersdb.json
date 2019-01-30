@@ -29,19 +29,7 @@
     },
     "configurationProperties" : {
         "username" : "root",
-        "password" : {
-            "$crypto" : {
-                "type" : "x-simple-encryption",
-                "value" : {
-                    "cipher" : "AES/CBC/PKCS5Padding",
-                    "salt" : "5k1NH6Gxun8ugi2NbqwuEA==",
-                    "data" : "tFn8XUpEcOkBQkQnPhNDag==",
-                    "iv" : "Yhd+LWuD0wIXo52QjJ4IWg==",
-                    "key" : "openidm-sym-default",
-                    "mac" : "APx9oLQIyxwSETFLB7E3+w=="
-                }
-            }
-        },
+        "password" : "cangetin",
         "driverClassName" : "com.mysql.jdbc.Driver",
         "url" : "jdbc:mysql://openidm.example.com:3306/subscribersdb",
         "autoCommit" : true,
