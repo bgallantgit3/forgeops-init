@@ -1,0 +1,14 @@
+dn: cn=schema
+changetype: modify
+add: attributeTypes
+attributeTypes: ( fec-subscriberAccount-attr-id NAME 'fec-subscriberAccount' DESC 'FEC subscriber account number' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE USAGE userApplications X-SCHEMA-FILE '99-user.ldif' )
+attributeTypes: ( fec-subscriberAccountOwner-attr-id NAME 'fec-subscriberAccountOwner' DESC 'FEC subscriber account owner, who is a subscriber' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE USAGE userApplications X-SCHEMA-FILE '99-user.ldif' )
+attributeTypes: ( fec-subscriberUid-attr-id NAME 'fec-subscriberUid' DESC 'FEC subscriber user id' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE USAGE userApplications X-SCHEMA-FILE '99-user.ldif' )
+attributeTypes: ( fec-subscriberType-attr-id NAME 'fec-subscriberType' DESC 'FEC subscriber type' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE USAGE userApplications X-SCHEMA-FILE '99-user.ldif' )
+attributeTypes: ( fec-subscriberRole-attr-id NAME 'fec-subscriberRole' DESC 'FEC subscriber role' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE USAGE userApplications X-SCHEMA-FILE '99-user.ldif' )
+attributeTypes: ( fec-subscriberFavMovie-attr-id NAME 'fec-subscriberFavMovie' DESC 'FEC subscribers favorite movie' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE USAGE userApplications X-SCHEMA-FILE '99-user.ldif' )
+attributeTypes: ( fec-subscriberFamilyMember-attr-id NAME 'fec-subscriberFamilyMember' DESC 'FEC subscriber family member' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 USAGE userApplications X-SCHEMA-FILE '99-user.ldif' )
+attributeTypes: ( fec-subscriberAge-attr-id NAME 'fec-subscriberAge' DESC 'FEC subscriber age' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE USAGE userApplications X-SCHEMA-FILE '99-user.ldif' )
+-
+add: objectClasses
+objectClasses: ( fec-subscriberPerson-oc-id NAME 'fec-subscriberPerson' DESC 'FEC custom object class for subscribers' SUP inetOrgPerson STRUCTURAL MAY ( fec-subscriberRole $ fec-subscriberFamilyMember $ fec-subscriberFavMovie $ fec-subscriberAccount $ fec-subscriberType $ fec-subscriberAccountOwner $ fec-subscriberUid $ fec-subscriberAge ) X-SCHEMA-FILE '99-user.ldif' )
