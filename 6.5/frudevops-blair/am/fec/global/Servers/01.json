@@ -1,0 +1,14 @@
+{
+  "metadata" : {
+    "realm" : null,
+    "amsterVersion" : "6.5.0",
+    "entityType" : "Servers",
+    "entityId" : "01",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "01",
+    "url" : "http://am.example.com:18080/am",
+    "siteName" : null
+  }
+}

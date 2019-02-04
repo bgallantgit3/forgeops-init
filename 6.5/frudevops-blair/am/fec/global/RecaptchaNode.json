@@ -1,0 +1,17 @@
+{
+  "metadata" : {
+    "realm" : null,
+    "amsterVersion" : "6.5.0",
+    "entityType" : "RecaptchaNode",
+    "entityId" : "RecaptchaNode",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "",
+    "_type" : {
+      "_id" : "RecaptchaNode",
+      "name" : "RecaptchaNode",
+      "collection" : false
+    }
+  }
+}
