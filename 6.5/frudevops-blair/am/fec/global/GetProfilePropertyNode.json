@@ -1,0 +1,17 @@
+{
+  "metadata" : {
+    "realm" : null,
+    "amsterVersion" : "6.5.0",
+    "entityType" : "GetProfilePropertyNode",
+    "entityId" : "GetProfilePropertyNode",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "",
+    "_type" : {
+      "_id" : "GetProfilePropertyNode",
+      "name" : "GetProfilePropertyNode",
+      "collection" : false
+    }
+  }
+}

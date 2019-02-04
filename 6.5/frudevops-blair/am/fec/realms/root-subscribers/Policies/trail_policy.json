@@ -1,0 +1,29 @@
+{
+  "metadata" : {
+    "realm" : "/subscribers",
+    "amsterVersion" : "6.5.0",
+    "entityType" : "Policies",
+    "entityId" : "trail_policy",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "trail_policy",
+    "name" : "trail_policy",
+    "active" : true,
+    "description" : "",
+    "applicationName" : "FEC",
+    "actionValues" : {
+      "POST" : true,
+      "GET" : true
+    },
+    "resources" : [ "http://fec.example.com:80/trial/*" ],
+    "subject" : {
+      "type" : "AuthenticatedUsers"
+    },
+    "resourceTypeUuid" : "76656a38-5f8e-401b-83aa-4ccb74ce88d2",
+    "lastModifiedBy" : "id=amadmin,ou=user,dc=openam,dc=forgerock,dc=org",
+    "lastModifiedDate" : "2018-06-18T14:52:17.493Z",
+    "createdBy" : "id=amadmin,ou=user,dc=openam,dc=forgerock,dc=org",
+    "creationDate" : "2018-06-18T14:51:10.723Z"
+  }
+}
