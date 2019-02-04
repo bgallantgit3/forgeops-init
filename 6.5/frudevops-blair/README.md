@@ -1,6 +1,6 @@
 Copyright
 =========
-Copyright 2014-2017 ForgeRock AS. All Rights Reserved
+Copyright 2014-2019 ForgeRock AS. All Rights Reserved
 
 Use of this code requires a commercial software license with ForgeRock AS.
 or with one of its affiliates. All use shall be exclusively subject
@@ -18,5 +18,12 @@ https://ea.forgerock.com/docs/idm/samples-guide/index.html#chap-sync-with-ldap-b
 This sample populates an IG server with the simplest possible configuration.  
 Includes a default handler returning IG home page.
 
+### Configurations for the FR-523 course
+Below are the configurations specifically for the FEC Portal use case.
+No guarantees at all as to the state of these configurations.
+
+The goal is to capture the configurations for DS, Amster, AM, IDM, and IG that work with the FEC Portal use case from the IDM-400 _Identity Management Core Concepts_ course.
+
+The FR-523 course uses the FEC Portal use case from the core concepts and migrates the configuration and data to instances running on a Kubernetes cluster.
 
 
