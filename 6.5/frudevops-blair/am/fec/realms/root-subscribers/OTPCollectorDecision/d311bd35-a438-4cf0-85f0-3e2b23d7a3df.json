@@ -1,0 +1,18 @@
+{
+  "metadata" : {
+    "realm" : "/subscribers",
+    "amsterVersion" : "6.5.0",
+    "entityType" : "OTPCollectorDecision",
+    "entityId" : "d311bd35-a438-4cf0-85f0-3e2b23d7a3df",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "d311bd35-a438-4cf0-85f0-3e2b23d7a3df",
+    "passwordExpiryTime" : 5,
+    "_type" : {
+      "_id" : "OneTimePasswordCollectorDecisionNode",
+      "name" : "OTP Collector Decision",
+      "collection" : true
+    }
+  }
+}

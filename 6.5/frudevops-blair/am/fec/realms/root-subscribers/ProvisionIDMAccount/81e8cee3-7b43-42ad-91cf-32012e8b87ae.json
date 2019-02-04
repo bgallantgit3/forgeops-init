@@ -1,0 +1,18 @@
+{
+  "metadata" : {
+    "realm" : "/subscribers",
+    "amsterVersion" : "6.5.0",
+    "entityType" : "ProvisionIDMAccount",
+    "entityId" : "81e8cee3-7b43-42ad-91cf-32012e8b87ae",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "81e8cee3-7b43-42ad-91cf-32012e8b87ae",
+    "accountProviderClass" : "org.forgerock.openam.authentication.modules.common.mapping.DefaultAccountProvider",
+    "_type" : {
+      "_id" : "ProvisionIdmAccountNode",
+      "name" : "Provision IDM Account",
+      "collection" : true
+    }
+  }
+}

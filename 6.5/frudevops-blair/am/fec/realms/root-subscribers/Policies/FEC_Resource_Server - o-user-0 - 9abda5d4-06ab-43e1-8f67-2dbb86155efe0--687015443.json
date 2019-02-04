@@ -1,0 +1,30 @@
+{
+  "metadata" : {
+    "realm" : "/subscribers",
+    "amsterVersion" : "6.5.0",
+    "entityType" : "Policies",
+    "entityId" : "FEC_Resource_Server - o.user.0 - 9abda5d4-06ab-43e1-8f67-2dbb86155efe0--687015443",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "FEC_Resource_Server - o.user.0 - 9abda5d4-06ab-43e1-8f67-2dbb86155efe0--687015443",
+    "name" : "FEC_Resource_Server - o.user.0 - 9abda5d4-06ab-43e1-8f67-2dbb86155efe0--687015443",
+    "active" : true,
+    "description" : "",
+    "applicationName" : "rsclient",
+    "actionValues" : {
+      "accesschild" : true
+    },
+    "resources" : [ "uma://9abda5d4-06ab-43e1-8f67-2dbb86155efe0" ],
+    "subject" : {
+      "type" : "JwtClaim",
+      "claimName" : "sub",
+      "claimValue" : "id=c.user.3,ou=user,o=subscribers,ou=services,dc=openam,dc=forgerock,dc=org"
+    },
+    "resourceTypeUuid" : "9abda5d4-06ab-43e1-8f67-2dbb86155efe0",
+    "lastModifiedBy" : "id=o.user.0,ou=user,o=subscribers,ou=services,dc=openam,dc=forgerock,dc=org",
+    "lastModifiedDate" : "2018-07-19T13:29:45.437Z",
+    "createdBy" : "id=o.user.0,ou=user,o=subscribers,ou=services,dc=openam,dc=forgerock,dc=org",
+    "creationDate" : "2018-07-19T13:29:45.437Z"
+  }
+}

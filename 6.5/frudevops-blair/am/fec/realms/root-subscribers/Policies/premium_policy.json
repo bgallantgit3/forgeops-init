@@ -1,0 +1,30 @@
+{
+  "metadata" : {
+    "realm" : "/subscribers",
+    "amsterVersion" : "6.5.0",
+    "entityType" : "Policies",
+    "entityId" : "premium_policy",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "premium_policy",
+    "name" : "premium_policy",
+    "active" : true,
+    "description" : "",
+    "applicationName" : "FEC",
+    "actionValues" : {
+      "POST" : true,
+      "GET" : true
+    },
+    "resources" : [ "http://fec.example.com:80/premium/*" ],
+    "subject" : {
+      "type" : "Identity",
+      "subjectValues" : [ "id=Premium,ou=group,o=subscribers,ou=services,dc=openam,dc=forgerock,dc=org" ]
+    },
+    "resourceTypeUuid" : "76656a38-5f8e-401b-83aa-4ccb74ce88d2",
+    "lastModifiedBy" : "id=amadmin,ou=user,dc=openam,dc=forgerock,dc=org",
+    "lastModifiedDate" : "2018-06-18T14:58:28.412Z",
+    "createdBy" : "id=amadmin,ou=user,dc=openam,dc=forgerock,dc=org",
+    "creationDate" : "2018-06-18T14:53:47.146Z"
+  }
+}
