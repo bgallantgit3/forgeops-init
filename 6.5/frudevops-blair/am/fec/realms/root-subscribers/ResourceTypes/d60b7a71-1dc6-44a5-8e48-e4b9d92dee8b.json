@@ -15,9 +15,9 @@
     "actions" : {
       "GRANT" : true
     },
-    "createdBy" : "id=dsameuser,ou=user,dc=openam,dc=forgerock,dc=org",
-    "creationDate" : 1527691170790,
-    "lastModifiedBy" : "id=dsameuser,ou=user,dc=openam,dc=forgerock,dc=org",
-    "lastModifiedDate" : 1527691170790
+    "createdBy" : "id=dsameuser,ou=user,ou=am-config",
+    "creationDate" : 1549327033320,
+    "lastModifiedBy" : "id=dsameuser,ou=user,ou=am-config",
+    "lastModifiedDate" : 1549327033320
   }
 }
