@@ -1,0 +1,7 @@
+instance: userstore
+
+# Try setting the baseDN, but has no affect
+# baseDN: "ou=subscribers,dc=example,dc=com"
+
+# Test passing a value to a post-install job
+# echoMessage: "ECHO THIS MESSAGE TEST"

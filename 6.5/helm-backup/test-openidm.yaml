@@ -1,0 +1,6 @@
+domain: .example.com
+
+config:
+  immutable: false
+  path: /git/config/6.5/frudevops-blair/idm/fec-2
+

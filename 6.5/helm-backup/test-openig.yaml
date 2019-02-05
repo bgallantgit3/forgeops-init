@@ -1,0 +1,5 @@
+domain: .example.com
+
+config:
+  path: /git/config/6.5/frudevops-blair/ig/development
+
