@@ -34,17 +34,18 @@
       "moduleBasedAuthEnabled" : true,
       "zeroPageLoginAllowedWithoutReferrer" : true,
       "sharedSecret" : null,
+      "sharedSecret-encrypted" : "AAAAA0FFUwIQiyXT2jPeM/KGS2ao0saiPNvYnL8xH+rq06GAK+t0JH5yd7J6zNzM65yXAuZcLBAN276C/JfNB1Eh2XKmb1mUjhQnZR3lSxlp",
       "keyAlias" : "test",
       "zeroPageLoginEnabled" : false,
       "zeroPageLoginReferrerWhiteList" : [ ]
     },
     "postauthprocess" : {
       "usernameGeneratorClass" : "com.sun.identity.authentication.spi.DefaultUserIDGenerator",
-      "loginFailureUrl" : [ "" ],
+      "loginFailureUrl" : [ ],
       "userAttributeSessionMapping" : [ ],
       "loginPostProcessClass" : [ ],
       "usernameGeneratorEnabled" : true,
-      "loginSuccessUrl" : [ "/am/console" ]
+      "loginSuccessUrl" : [ "/console" ]
     },
     "core" : {
       "orgConfig" : "ldapService",
