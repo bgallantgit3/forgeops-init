@@ -1,0 +1,27 @@
+{
+  "metadata" : {
+    "realm" : "/subscribers",
+    "amsterVersion" : "6.5.0",
+    "entityType" : "ResourceTypes",
+    "entityId" : "11577d48-a570-49c4-b02b-82991e7832460",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "11577d48-a570-49c4-b02b-82991e7832460",
+    "uuid" : "11577d48-a570-49c4-b02b-82991e7832460",
+    "name" : "FEC_Resource_Server - 11577d48-a570-49c4-b02b-82991e7832460",
+    "description" : "Dynamically created resource type for the UMA resource set. Used to find all Policy Engine Policies that make up an UMA Policy",
+    "patterns" : [ "uma://-*-" ],
+    "actions" : {
+      "accesschild" : true,
+      "accessstandard" : true,
+      "access-on-demand" : true,
+      "authorize-on-demand" : true,
+      "access-young-adult" : true
+    },
+    "createdBy" : "id=dsameuser,ou=user,dc=openam,dc=forgerock,dc=org",
+    "creationDate" : 1529089249794,
+    "lastModifiedBy" : "id=dsameuser,ou=user,dc=openam,dc=forgerock,dc=org",
+    "lastModifiedDate" : 1529089249794
+  }
+}

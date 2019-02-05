@@ -1,0 +1,89 @@
+{
+  "metadata" : {
+    "realm" : "/subscribers",
+    "amsterVersion" : "6.5.0",
+    "entityType" : "OAuth2Provider",
+    "entityId" : "OAuth2Provider",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "",
+    "coreOAuth2Config" : {
+      "refreshTokenLifetime" : 604800,
+      "accessTokenLifetime" : 3600,
+      "usePolicyEngineForScope" : false,
+      "codeLifetime" : 300,
+      "issueRefreshTokenOnRefreshedToken" : false,
+      "issueRefreshToken" : false,
+      "statelessTokensEnabled" : false
+    },
+    "coreOIDCConfig" : {
+      "supportedIDTokenEncryptionMethods" : [ "A256GCM", "A192GCM", "A128GCM", "A128CBC-HS256", "A192CBC-HS384", "A256CBC-HS512" ],
+      "jwtTokenLifetime" : 3600,
+      "supportedClaims" : [ "phone_number|Phone number", "family_name|Family name", "subscription_level|Subscription level", "given_name|Given name", "locale|Locale", "email|Email address", "profile|Your personal information", "zoneinfo|Time zone", "address|Postal address", "name|Full name" ],
+      "supportedIDTokenEncryptionAlgorithms" : [ "RSA-OAEP", "RSA-OAEP-256", "A128KW", "A256KW", "RSA1_5", "dir", "A192KW" ],
+      "supportedIDTokenSigningAlgorithms" : [ "PS384", "RS384", "ES384", "HS256", "HS512", "ES256", "RS256", "HS384", "ES512", "PS256", "PS512", "RS512" ],
+      "oidcClaimsScript" : "1625f69f-e537-4c0a-95a8-b1104e4a0fdd"
+    },
+    "advancedOAuth2Config" : {
+      "supportedScopes" : [ "streaming|Stream a movie to a device", "email|Your email address", "openid|", "streaming", "address|Your postal address", "phone|Your telephone number(s)", "subscription|Your subscription details", "profile|Your personal information", "uma_authorization|Provide access to data shared with you", "uma_protection|Control access to your data" ],
+      "codeVerifierEnforced" : "false",
+      "tokenSigningAlgorithm" : "HS256",
+      "authenticationAttributes" : [ "uid" ],
+      "defaultScopes" : [ "address", "phone", "openid", "uma_protection", "profile", "uma_authorization", "email" ],
+      "scopeImplementationClass" : "org.forgerock.openam.oauth2.OpenAMScopeValidator",
+      "responseTypeClasses" : [ "code|org.forgerock.oauth2.core.AuthorizationCodeResponseTypeHandler", "id_token|org.forgerock.openidconnect.IdTokenResponseTypeHandler", "device_code|org.forgerock.oauth2.core.TokenResponseTypeHandler", "token|org.forgerock.oauth2.core.TokenResponseTypeHandler" ],
+      "moduleMessageEnabledInPasswordGrant" : false,
+      "tokenEncryptionEnabled" : false,
+      "tokenCompressionEnabled" : false,
+      "grantTypes" : [ "implicit", "refresh_token", "urn:ietf:params:oauth:grant-type:saml2-bearer", "password", "client_credentials", "urn:ietf:params:oauth:grant-type:device_code", "authorization_code", "urn:ietf:params:oauth:grant-type:uma-ticket" ],
+      "displayNameAttribute" : "cn",
+      "supportedSubjectTypes" : [ "public" ]
+    },
+    "advancedOIDCConfig" : {
+      "storeOpsTokens" : true,
+      "defaultACR" : [ ],
+      "supportedRequestParameterEncryptionEnc" : [ "A256GCM", "A192GCM", "A128GCM", "A128CBC-HS256", "A192CBC-HS384", "A256CBC-HS512" ],
+      "claimsParameterSupported" : false,
+      "amrMappings" : { },
+      "supportedUserInfoEncryptionEnc" : [ "A256GCM", "A192GCM", "A128GCM", "A128CBC-HS256", "A192CBC-HS384", "A256CBC-HS512" ],
+      "requireRequestUriRegistration" : false,
+      "alwaysAddClaimsToToken" : true,
+      "supportedUserInfoSigningAlgorithms" : [ "ES384", "HS256", "HS512", "ES256", "RS256", "HS384", "ES512" ],
+      "supportedRequestParameterEncryptionAlgorithms" : [ "RSA-OAEP", "RSA-OAEP-256", "A128KW", "RSA1_5", "A256KW", "dir", "A192KW" ],
+      "authorisedOpenIdConnectSSOClients" : [ "openidm" ],
+      "idTokenInfoClientAuthenticationEnabled" : true,
+      "supportedRequestParameterSigningAlgorithms" : [ "PS384", "RS384", "ES384", "HS256", "HS512", "ES256", "RS256", "HS384", "ES512", "PS256", "PS512", "RS512" ],
+      "supportedUserInfoEncryptionAlgorithms" : [ "RSA-OAEP", "RSA-OAEP-256", "A128KW", "A256KW", "RSA1_5", "dir", "A192KW" ],
+      "supportedTokenEndpointAuthenticationSigningAlgorithms" : [ "PS384", "RS384", "ES384", "HS256", "HS512", "ES256", "RS256", "HS384", "ES512", "PS256", "PS512", "RS512" ],
+      "loaMapping" : { }
+    },
+    "clientDynamicRegistrationConfig" : {
+      "dynamicClientRegistrationSoftwareStatementRequired" : false,
+      "dynamicClientRegistrationScope" : "dynamic_client_registration",
+      "requiredSoftwareStatementAttestedAttributes" : [ "redirect_uris" ],
+      "generateRegistrationAccessTokens" : true,
+      "allowDynamicRegistration" : false
+    },
+    "consent" : {
+      "enableRemoteConsent" : false,
+      "supportedRcsRequestSigningAlgorithms" : [ "PS384", "RS384", "ES384", "HS256", "HS512", "ES256", "RS256", "HS384", "ES512", "PS256", "PS512", "RS512" ],
+      "supportedRcsResponseSigningAlgorithms" : [ "PS384", "RS384", "ES384", "HS256", "HS512", "ES256", "RS256", "HS384", "ES512", "PS256", "PS512", "RS512" ],
+      "clientsCanSkipConsent" : true,
+      "supportedRcsRequestEncryptionAlgorithms" : [ "RSA-OAEP", "RSA-OAEP-256", "A128KW", "RSA1_5", "A256KW", "dir", "A192KW" ],
+      "supportedRcsResponseEncryptionMethods" : [ "A256GCM", "A192GCM", "A128GCM", "A128CBC-HS256", "A192CBC-HS384", "A256CBC-HS512" ],
+      "supportedRcsRequestEncryptionMethods" : [ "A256GCM", "A192GCM", "A128GCM", "A128CBC-HS256", "A192CBC-HS384", "A256CBC-HS512" ],
+      "remoteConsentServiceId" : "[Empty]",
+      "supportedRcsResponseEncryptionAlgorithms" : [ "RSA-OAEP", "RSA-OAEP-256", "A128KW", "A256KW", "RSA1_5", "dir", "A192KW" ]
+    },
+    "deviceCodeConfig" : {
+      "devicePollInterval" : 5,
+      "deviceCodeLifetime" : 300
+    },
+    "_type" : {
+      "_id" : "oauth-oidc",
+      "name" : "OAuth2 Provider",
+      "collection" : false
+    }
+  }
+}

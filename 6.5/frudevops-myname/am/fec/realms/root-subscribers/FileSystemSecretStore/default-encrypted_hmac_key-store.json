@@ -1,0 +1,19 @@
+{
+  "metadata" : {
+    "realm" : "/subscribers",
+    "amsterVersion" : "6.5.0",
+    "entityType" : "FileSystemSecretStore",
+    "entityId" : "default-encrypted_hmac_key-store",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "default-encrypted_hmac_key-store",
+    "format" : "ENCRYPTED_HMAC_KEY",
+    "directory" : "/opt/projects/openam_cfg/secrets/realms/root/subscribers/encrypted_hmac_key",
+    "_type" : {
+      "_id" : "FileSystemSecretStore",
+      "name" : "File System Secret Volumes",
+      "collection" : true
+    }
+  }
+}

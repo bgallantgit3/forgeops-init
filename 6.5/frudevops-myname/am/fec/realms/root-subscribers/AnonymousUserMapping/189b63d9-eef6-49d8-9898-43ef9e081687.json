@@ -1,0 +1,18 @@
+{
+  "metadata" : {
+    "realm" : "/subscribers",
+    "amsterVersion" : "6.5.0",
+    "entityType" : "AnonymousUserMapping",
+    "entityId" : "189b63d9-eef6-49d8-9898-43ef9e081687",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "189b63d9-eef6-49d8-9898-43ef9e081687",
+    "anonymousUserName" : "anonymous",
+    "_type" : {
+      "_id" : "AnonymousUserNode",
+      "name" : "Anonymous User Mapping",
+      "collection" : true
+    }
+  }
+}

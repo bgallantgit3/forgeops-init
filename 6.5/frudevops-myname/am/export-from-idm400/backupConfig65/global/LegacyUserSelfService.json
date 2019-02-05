@@ -1,0 +1,29 @@
+{
+  "metadata" : {
+    "realm" : null,
+    "amsterVersion" : "6.5.0.1",
+    "entityType" : "LegacyUserSelfService",
+    "entityId" : "LegacyUserSelfService",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "",
+    "defaults" : {
+      "forgotPasswordTokenLifetime" : 900,
+      "selfServiceEnabled" : false,
+      "selfRegistrationConfirmationUrl" : "http://am.example.com:18080/am/XUI/confirm.html",
+      "forgotPasswordEnabled" : false,
+      "selfRegistrationEnabled" : false,
+      "selfRegistrationTokenLifetime" : 900,
+      "forgotPasswordConfirmationUrl" : "http://am.example.com:18080/am/XUI/confirm.html",
+      "userRegisteredDestination" : "default",
+      "protectedUserAttributes" : [ ],
+      "confirmationIdHmacKey" : "ELA7r1C1IvdSGlBrUAO3ZuLwmMfS3t43gwGRuHTdYXo="
+    },
+    "_type" : {
+      "_id" : "security",
+      "name" : "Legacy User Self Service",
+      "collection" : false
+    }
+  }
+}

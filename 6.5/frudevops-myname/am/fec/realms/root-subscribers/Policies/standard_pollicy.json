@@ -1,0 +1,33 @@
+{
+  "metadata" : {
+    "realm" : "/subscribers",
+    "amsterVersion" : "6.5.0",
+    "entityType" : "Policies",
+    "entityId" : "standard_pollicy",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "standard_pollicy",
+    "name" : "standard_pollicy",
+    "active" : true,
+    "description" : "",
+    "applicationName" : "FEC",
+    "actionValues" : {
+      "POST" : true,
+      "GET" : true
+    },
+    "resources" : [ "http://fec.example.com:80/browse/*", "http://fec.example.com:80/ondemand/*", "http://fec.example.com:80/profile/*", "http://fec.example.com:80/browse/index.html?category=*", "http://fec.example.com:80/home.html" ],
+    "subject" : {
+      "type" : "AuthenticatedUsers"
+    },
+    "condition" : {
+      "type" : "AuthenticateToService",
+      "authenticateToService" : "/subscribers:subscribersTree"
+    },
+    "resourceTypeUuid" : "76656a38-5f8e-401b-83aa-4ccb74ce88d2",
+    "lastModifiedBy" : "id=amadmin,ou=user,dc=openam,dc=forgerock,dc=org",
+    "lastModifiedDate" : "2018-06-14T21:48:40.736Z",
+    "createdBy" : "id=amadmin,ou=user,dc=openam,dc=forgerock,dc=org",
+    "creationDate" : "2018-06-14T21:39:48.350Z"
+  }
+}

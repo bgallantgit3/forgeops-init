@@ -1,0 +1,17 @@
+{
+  "metadata" : {
+    "realm" : null,
+    "amsterVersion" : "6.5.0.1",
+    "entityType" : "crestPolicyService",
+    "entityId" : "crestPolicyService",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "",
+    "_type" : {
+      "_id" : "crestPolicyService",
+      "name" : "CREST Policy Filter",
+      "collection" : false
+    }
+  }
+}

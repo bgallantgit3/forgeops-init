@@ -1,0 +1,17 @@
+{
+  "metadata" : {
+    "realm" : null,
+    "amsterVersion" : "6.5.0.1",
+    "entityType" : "OSCollectorNode",
+    "entityId" : "OSCollectorNode",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "",
+    "_type" : {
+      "_id" : "OSCollectorNode",
+      "name" : "OSCollectorNode",
+      "collection" : false
+    }
+  }
+}
