@@ -11,6 +11,6 @@
     "parentPath" : "/",
     "active" : true,
     "name" : "subscribers",
-    "aliases" : [ "subscribers" ]
+    "aliases" : [ "subscribers", "subscribers.frudevops-myname.example.com" ]
   }
 }

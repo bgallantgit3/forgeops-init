@@ -9,6 +9,7 @@
   "data" : {
     "_id" : "null/properties/advanced",
     "com.iplanet.am.directory.ssl.enabled" : false,
+    "com.sun.identity.server.fqdnMap[subscribers.frudevops-myname.example.com]" : "subscribers.frudevops-myname.example.com",
     "openam.auth.distAuthCookieName" : "AMDistAuthCookie",
     "com.sun.identity.webcontainer" : "WEB_CONTAINER",
     "com.sun.identity.security.checkcaller" : false,
