@@ -12,3 +12,18 @@ In both cases, the backend of DS needs to have a suffix (base DN) added before y
 The `ou=identities` base DN is already in the userstore backend, so you don't need to create or add it.
 You do need to add `ou=subscribers,dc=example,dc=com` to the backend before you import the original `subscribers.ldif` file.
 
+## Manually installing the schema and loading sample data
+
+To load the schema:
+    
+    `ldapmodify -h localhost -p 1389 -D "cn=Directory Manager" -w password -a -c -f 99-user-mods.ldif`
+
+To load sample data, using ou=identities default:
+
+    `ldapmodify -h localhost -p 1389 -D "cn=Directory Manager" -w password -a -c -f subscribers-identities.ldif`
+
+To validate:
+
+    `ldapsearch -h localhost -p 1389 -D "cn=Directory Manager" -w password -b "ou=identities" objectclass=groupOfUniqueNames`
+
+    `ldapsearch -h localhost -p 1389 -D "cn=Directory Manager" -w password -b "ou=identities" objectclass=inetOrgPerson`
