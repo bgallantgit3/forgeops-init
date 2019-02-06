@@ -5,7 +5,21 @@
     "userInfoEndpoint" : "https://www.googleapis.com/oauth2/v3/userinfo",
     "wellKnownEndpoint" : "https://accounts.google.com/.well-known/openid-configuration",
     "clientId" : "xxx",
-    "clientSecret" : "yyy",
+    "clientSecret" : {
+        "$crypto" : {
+            "type" : "x-simple-encryption",
+            "value" : {
+                "cipher" : "AES/CBC/PKCS5Padding",
+                "stableId" : "openidm-sym-default",
+                "salt" : "IaMYcjqOz0KlW0mhJ6z6AA==",
+                "data" : "L4NqIsp1lOM3Su4cWhKIAA==",
+                "keySize" : 16,
+                "purpose" : "idm.config.encryption",
+                "iv" : "cCadUnz3l0iXUD07aa23dw==",
+                "mac" : "gsp7LBhC9rTTpaJVvDCkmg=="
+            }
+        }
+    },
     "uiConfig" : {
         "iconBackground" : "#4184f3",
         "iconClass" : "fa-google",
