@@ -26,4 +26,4 @@ The goal is to capture the configurations for DS, Amster, AM, IDM, and IG that w
 
 The FR-523 course uses the FEC Portal use case from the core concepts and migrates the configuration and data to instances running on a Kubernetes cluster.
 
-
+TEST
