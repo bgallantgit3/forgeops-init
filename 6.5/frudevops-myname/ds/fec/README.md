@@ -18,6 +18,10 @@ To load the schema:
     
     `ldapmodify -h localhost -p 1389 -D "cn=Directory Manager" -w password -a -c -f 99-user-mods.ldif`
 
+To validate the schema was updated:
+
+    `ldapsearch -h localhost -p 1389 -D "cn=Directory Manager" -w password -b "cn=schema" -s base objectclass=subschema +  | grep fec-subscriber`
+
 To load sample data, using ou=identities default:
 
     `ldapmodify -h localhost -p 1389 -D "cn=Directory Manager" -w password -a -c -f subscribers-identities.ldif`
