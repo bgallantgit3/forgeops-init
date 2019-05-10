@@ -9,6 +9,7 @@
   "data" : {
     "_id" : "",
     "defaults" : {
+      "kerberosServiceIsinitiator" : true,
       "trustedKerberosRealms" : [ ],
       "lookupUserInRealm" : false,
       "authenticationLevel" : 0,
@@ -16,7 +17,7 @@
     },
     "_type" : {
       "_id" : "windowsdesktopsso",
-      "name" : "Windows Desktop SSO",
+      "name" : "iPlanetAMAuthWindowsDesktopSSOService",
       "collection" : false
     }
   }

@@ -9,12 +9,12 @@
   "data" : {
     "_id" : "",
     "defaults" : {
-      "contextPath" : "",
+      "contextPath" : "/am",
       "source" : "REQUEST_VALUES"
     },
     "_type" : {
       "_id" : "baseurl",
-      "name" : "Base URL Source",
+      "name" : "amRealmBaseURL",
       "collection" : false
     }
   }

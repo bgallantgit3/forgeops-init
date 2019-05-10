@@ -11,19 +11,19 @@
     "defaults" : {
       "authenticationLevel" : 0,
       "userProfileMsisdnAttribute" : "sunIdentityMSISDNNumber",
-      "ldapUserBindDN" : "cn=Directory Manager",
+      "ldapUserBindDN" : "uid=admin",
       "msisdnUserNamingAttribute" : "uid",
       "ldapSslEnabled" : false,
       "msisdnRequestSearchLocations" : [ "searchRequest", "searchParam", "searchCookie" ],
-      "ldapProviderUrl" : [ "configstore-0.configstore:1389" ],
+      "ldapProviderUrl" : [ "userstore-0.userstore:1389" ],
       "msisdnParameterNames" : [ ],
       "trustedGatewayIPAddresses" : [ ],
-      "baseSearchDN" : [ "ou=am-config" ],
+      "baseSearchDN" : [ "ou=identities" ],
       "returnUserDN" : true
     },
     "_type" : {
       "_id" : "msisdn",
-      "name" : "MSISDN",
+      "name" : "sunAMAuthMSISDNService",
       "collection" : false
     }
   }

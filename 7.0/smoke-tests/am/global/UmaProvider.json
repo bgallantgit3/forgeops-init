@@ -9,6 +9,7 @@
   "data" : {
     "_id" : "",
     "defaults" : {
+      "resourceTypesManagedInternally" : true,
       "deletePoliciesOnDeleteRS" : true,
       "resharingMode" : "IMPLICIT",
       "permissionTicketLifetime" : 120,
@@ -21,7 +22,7 @@
     },
     "_type" : {
       "_id" : "uma",
-      "name" : "UMA Provider",
+      "name" : "UmaProvider",
       "collection" : false
     }
   }

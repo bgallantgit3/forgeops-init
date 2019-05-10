@@ -25,11 +25,11 @@
       "userProfileTelephoneAttribute" : "telephoneNumber",
       "smtpFromAddress" : "no-reply@openam.org",
       "smtpUserPassword" : null,
-      "smtpUserPassword-encrypted" : "AAAAA0FFUwIQJA6GD0aqWyOHIUT8Hki9IrCUydW722YBf0lGiyUrnzhcJF5nJxEn6Q=="
+      "smtpUserPassword-encrypted" : "AAAAA0FFUwIQeoB44TPx9lT/ex7ZyVJ9zks8tDco95DRPecIaIekmo/rrtHVA17gxQ=="
     },
     "_type" : {
       "_id" : "hotp",
-      "name" : "HOTP",
+      "name" : "sunAMAuthHOTPService",
       "collection" : false
     }
   }
