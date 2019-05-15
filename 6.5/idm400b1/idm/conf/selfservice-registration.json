@@ -1,0 +1,76 @@
+{
+    "allInOneRegistration" : true,
+    "stageConfigs" : [
+        {
+            "name" : "parameters",
+            "parameterNames" : [
+                "returnParams"
+            ]
+        },
+        {
+            "name" : "idmUserDetails",
+            "identityEmailField" : "mail",
+            "socialRegistrationEnabled" : true,
+            "registrationProperties" : [
+                "userName",
+                "givenName",
+                "sn",
+                "mail"
+            ],
+            "identityServiceUrl" : "managed/user"
+        },
+        {
+            "name" : "termsAndConditions"
+        },
+        {
+            "name" : "consent",
+            "consentTranslations" : {
+                "en" : "substitute appropriate Privacy & Consent wording",
+                "fr" : "substitute appropriate Privacy & Consent wording, in French"
+            }
+        },
+        {
+            "name" : "emailValidation",
+            "identityEmailField" : "mail",
+            "emailServiceUrl" : "external/email",
+            "emailServiceParameters" : {
+                "waitForCompletion" : false
+            },
+            "from" : "idm-user-registration@example.com",
+            "subject" : "Register new account",
+            "mimeType" : "text/html",
+            "subjectTranslations" : {
+                "en" : "Register new account",
+                "fr" : "Créer un nouveau compte"
+            },
+            "messageTranslations" : {
+                "en" : "<h3>This is your registration email.</h3><h4><a href=\"%link%\">Email verification link</a></h4>",
+                "fr" : "<h3>Ceci est votre mail d'inscription.</h3><h4><a href=\"%link%\">Lien de vérification email</a></h4>"
+            },
+            "verificationLinkToken" : "%link%",
+            "verificationLink" : "http://openidm.example.com:8080/#register/"
+        },
+        {
+            "name" : "kbaSecurityAnswerDefinitionStage",
+            "kbaConfig" : null
+        },
+        {
+            "name" : "selfRegistration",
+            "identityServiceUrl" : "managed/user"
+        },
+        {
+            "name" : "localAutoLogin",
+            "identityUsernameField" : "userName",
+            "identityPasswordField" : "password",
+            "successUrl" : ""
+        }
+    ],
+    "snapshotToken" : {
+        "type" : "jwt",
+        "jweAlgorithm" : "RSAES_PKCS1_V1_5",
+        "encryptionMethod" : "A128CBC_HS256",
+        "jwsAlgorithm" : "HS256",
+        "tokenExpiry" : 300
+    },
+    "storage" : "stateless"
+}
