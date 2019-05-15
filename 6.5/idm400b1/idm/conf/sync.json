@@ -1,496 +1,153 @@
 {
     "mappings" : [
         {
-            "target" : "system/subscribersLDAP/account",
-            "source" : "managed/user",
-            "name" : "managedUser_systemSubscribersldapAccount",
-            "icon" : null,
-            "displayName" : "managedUser_systemSubscribersldapAccount",
+            "name" : "systemLdapAccounts_managedUser",
+            "source" : "system/ldap/account",
+            "target" : "managed/user",
             "properties" : [
                 {
-                    "target" : "uid",
-                    "source" : "userName"
+                    "source" : "cn",
+                    "target" : "displayName"
                 },
                 {
-                    "target" : "givenName",
-                    "source" : "givenName"
-                },
-                {
-                    "target" : "sn",
-                    "source" : "sn"
-                },
-                {
-                    "target" : "mail",
-                    "source" : "mail"
-                },
-                {
-                    "target" : "cn",
-                    "transform" : {
-                        "type" : "text/javascript",
-                        "globals" : { },
-                        "source" : "source.displayName || (source.givenName + ' ' + source.sn);"
-                    },
-                    "source" : ""
-                },
-                {
-                    "target" : "telephoneNumber",
-                    "source" : "telephoneNumber",
-                    "condition" : {
-                        "type" : "text/javascript",
-                        "globals" : { },
-                        "source" : "!!object.telephoneNumber"
-                    }
-                },
-                {
-                    "target" : "description",
                     "source" : "description",
-                    "condition" : {
-                        "type" : "text/javascript",
-                        "globals" : { },
-                        "source" : "!!object.description"
-                    }
+                    "target" : "description"
                 },
                 {
-                    "target" : "userPassword",
-                    "source" : "password",
-                    "transform" : {
-                        "type" : "text/javascript",
-                        "globals" : { },
-                        "source" : "openidm.decrypt(source);"
-                    },
-                    "condition" : {
-                        "type" : "text/javascript",
-                        "globals" : { },
-                        "source" : "object.password != null"
-                    }
+                    "source" : "givenName",
+                    "target" : "givenName"
                 },
                 {
-                    "target" : "subscribersAge",
-                    "source" : "subscribersAge",
-                    "condition" : {
-                        "type" : "text/javascript",
-                        "globals" : { },
-                        "source" : "!!object.subscribersAge"
-                    }
+                    "source" : "mail",
+                    "target" : "mail"
                 },
                 {
-                    "target" : "subscribersFavMovie",
-                    "source" : "subscribersFavMovie",
-                    "condition" : {
-                        "type" : "text/javascript",
-                        "globals" : { },
-                        "source" : "!!object.subscribersFavMovie"
-                    }
+                    "source" : "telephoneNumber",
+                    "target" : "telephoneNumber"
+                },
+                {
+                    "source" : "sn",
+                    "target" : "sn"
+                },
+                {
+                    "source" : "uid",
+                    "target" : "userName"
+                },
+                {
+                    "source" : "inetuserstatus",
+                    "target" : "accountStatus"
                 }
             ],
             "policies" : [
                 {
-                    "action" : "EXCEPTION",
-                    "situation" : "AMBIGUOUS"
+                    "situation" : "CONFIRMED",
+                    "action" : "UPDATE"
                 },
                 {
-                    "action" : "EXCEPTION",
-                    "situation" : "SOURCE_MISSING"
+                    "situation" : "FOUND",
+                    "action" : "UPDATE"
                 },
                 {
-                    "action" : "EXCEPTION",
-                    "situation" : "MISSING"
+                    "situation" : "ABSENT",
+                    "action" : "CREATE"
                 },
                 {
-                    "action" : "EXCEPTION",
-                    "situation" : "FOUND_ALREADY_LINKED"
+                    "situation" : "AMBIGUOUS",
+                    "action" : "EXCEPTION"
                 },
                 {
-                    "action" : "DELETE",
-                    "situation" : "UNQUALIFIED"
+                    "situation" : "MISSING",
+                    "action" : "CREATE"
                 },
                 {
-                    "action" : "EXCEPTION",
-                    "situation" : "UNASSIGNED"
+                    "situation" : "SOURCE_MISSING",
+                    "action" : "DELETE"
                 },
                 {
-                    "action" : "EXCEPTION",
-                    "situation" : "LINK_ONLY"
+                    "situation" : "UNQUALIFIED",
+                    "action" : "IGNORE"
                 },
                 {
-                    "action" : "IGNORE",
-                    "situation" : "TARGET_IGNORED"
-                },
-                {
-                    "action" : "IGNORE",
-                    "situation" : "SOURCE_IGNORED"
-                },
-                {
-                    "action" : "IGNORE",
-                    "situation" : "ALL_GONE"
-                },
-                {
-                    "action" : "UPDATE",
-                    "situation" : "CONFIRMED"
-                },
-                {
-                    "action" : "UPDATE",
-                    "situation" : "FOUND"
-                },
-                {
-                    "action" : "CREATE",
-                    "situation" : "ABSENT"
-                }
-            ],
-            "onCreate" : {
-                "type" : "text/javascript",
-                "globals" : { },
-                "source" : "target.dn = 'uid=' + source.userName + ',ou=People,ou=subscribers,dc=example,dc=com';"
-            },
-            "correlationQuery" : [
-                {
-                    "linkQualifier" : "default",
-                    "expressionTree" : {
-                        "all" : [
-                            "uid"
-                        ]
-                    },
-                    "mapping" : "managedUser_systemSubscribersldapAccount",
-                    "type" : "text/javascript",
-                    "file" : "ui/correlateTreeToQueryFilter.js"
+                    "situation" : "UNASSIGNED",
+                    "action" : "IGNORE"
                 }
             ]
         },
         {
-            "target" : "managed/user",
-            "source" : "system/subscribersLDAP/account",
-            "name" : "systemSubscribersldapAccount_managedUser",
-            "icon" : null,
-            "displayName" : "systemSubscribersldapAccount_managedUser",
-            "properties" : [
-                {
-                    "target" : "userName",
-                    "source" : "uid"
-                },
-                {
-                    "target" : "givenName",
-                    "source" : "givenName"
-                },
-                {
-                    "target" : "sn",
-                    "source" : "sn"
-                },
-                {
-                    "target" : "mail",
-                    "source" : "mail"
-                },
-                {
-                    "target" : "subscribersAge",
-                    "source" : "subscribersAge"
-                },
-                {
-                    "target" : "subscribersFavMovie",
-                    "source" : "subscribersFavMovie"
-                },
-                {
-                    "target" : "subscribersRole",
-                    "source" : "subscriberRole"
-                },
-                {
-                    "target" : "subscriptionType",
-                    "source" : "subscriptionType"
-                }
-            ],
-            "policies" : [
-                {
-                    "action" : "EXCEPTION",
-                    "situation" : "AMBIGUOUS"
-                },
-                {
-                    "action" : "EXCEPTION",
-                    "situation" : "SOURCE_MISSING"
-                },
-                {
-                    "action" : "EXCEPTION",
-                    "situation" : "MISSING"
-                },
-                {
-                    "action" : "EXCEPTION",
-                    "situation" : "FOUND_ALREADY_LINKED"
-                },
-                {
-                    "action" : "DELETE",
-                    "situation" : "UNQUALIFIED"
-                },
-                {
-                    "action" : "EXCEPTION",
-                    "situation" : "UNASSIGNED"
-                },
-                {
-                    "action" : "EXCEPTION",
-                    "situation" : "LINK_ONLY"
-                },
-                {
-                    "action" : "IGNORE",
-                    "situation" : "TARGET_IGNORED"
-                },
-                {
-                    "action" : "IGNORE",
-                    "situation" : "SOURCE_IGNORED"
-                },
-                {
-                    "action" : "IGNORE",
-                    "situation" : "ALL_GONE"
-                },
-                {
-                    "action" : "UPDATE",
-                    "situation" : "CONFIRMED"
-                },
-                {
-                    "action" : "UPDATE",
-                    "situation" : "FOUND"
-                },
-                {
-                    "action" : "CREATE",
-                    "situation" : "ABSENT"
-                }
-            ],
-            "links" : "managedUser_systemSubscribersldapAccount",
-            "correlationQuery" : [ ],
+            "name" : "managedUser_systemLdapAccounts",
+            "source" : "managed/user",
+            "target" : "system/ldap/account",
+            "links" : "systemLdapAccounts_managedUser",
             "onCreate" : {
                 "type" : "text/javascript",
                 "globals" : { },
-                "source" : "target.password = 'Welcome1';"
-            }
-        },
-        {
-            "target" : "system/MarketingEmailList/__ACCOUNT__",
-            "source" : "managed/user",
-            "name" : "managedUser_systemMarketingemaillist__ACCOUNT__",
-            "displayName" : "Allow your profile to be sent to Marketing when you enable the Marketing user preference",
+                "source" : "target.dn = 'uid=' + source.userName + ',ou=people,&{userstore.basecontext}';"
+            },
             "properties" : [
                 {
-                    "target" : "__NAME__",
-                    "source" : "userName"
+                    "source" : "givenName",
+                    "target" : "givenName"
                 },
                 {
-                    "target" : "email",
-                    "source" : "mail"
+                    "source" : "sn",
+                    "target" : "sn"
                 },
                 {
-                    "target" : "firstName",
-                    "source" : "givenName"
-                },
-                {
-                    "target" : "lastName",
-                    "source" : "sn"
-                }
-            ],
-            "policies" : [
-                {
-                    "action" : "EXCEPTION",
-                    "situation" : "AMBIGUOUS"
-                },
-                {
-                    "action" : "EXCEPTION",
-                    "situation" : "SOURCE_MISSING"
-                },
-                {
-                    "action" : "EXCEPTION",
-                    "situation" : "MISSING"
-                },
-                {
-                    "action" : "EXCEPTION",
-                    "situation" : "FOUND_ALREADY_LINKED"
-                },
-                {
-                    "action" : "DELETE",
-                    "situation" : "UNQUALIFIED"
-                },
-                {
-                    "action" : "EXCEPTION",
-                    "situation" : "UNASSIGNED"
-                },
-                {
-                    "action" : "EXCEPTION",
-                    "situation" : "LINK_ONLY"
-                },
-                {
-                    "action" : "IGNORE",
-                    "situation" : "TARGET_IGNORED"
-                },
-                {
-                    "action" : "IGNORE",
-                    "situation" : "SOURCE_IGNORED"
-                },
-                {
-                    "action" : "IGNORE",
-                    "situation" : "ALL_GONE"
-                },
-                {
-                    "action" : "UPDATE",
-                    "situation" : "CONFIRMED"
-                },
-                {
-                    "action" : "UPDATE",
-                    "situation" : "FOUND"
-                },
-                {
-                    "action" : "CREATE",
-                    "situation" : "ABSENT"
-                }
-            ],
-            "correlationQuery" : [
-                {
-                    "linkQualifier" : "default",
-                    "expressionTree" : {
-                        "any" : [
-                            "email"
-                        ]
-                    },
-                    "mapping" : "managedUser_systemMarketingemaillist__ACCOUNT__",
-                    "type" : "text/javascript",
-                    "file" : "ui/correlateTreeToQueryFilter.js"
-                }
-            ],
-            "consentRequired" : true
-        },
-        {
-            "target" : "system/UpdatesEmailList/__ACCOUNT__",
-            "source" : "managed/user",
-            "name" : "managedUser_systemUpdatesemaillist__ACCOUNT__",
-            "displayName" : "Allow your profile to be sent to Updates when you enable the updates user preference",
-            "properties" : [
-                {
-                    "target" : "__NAME__",
-                    "source" : "userName"
-                },
-                {
-                    "target" : "email",
-                    "source" : "mail"
-                },
-                {
-                    "target" : "firstName",
-                    "source" : "givenName"
-                },
-                {
-                    "target" : "lastName",
-                    "source" : "sn"
-                }
-            ],
-            "policies" : [
-                {
-                    "action" : "EXCEPTION",
-                    "situation" : "AMBIGUOUS"
-                },
-                {
-                    "action" : "EXCEPTION",
-                    "situation" : "SOURCE_MISSING"
-                },
-                {
-                    "action" : "EXCEPTION",
-                    "situation" : "MISSING"
-                },
-                {
-                    "action" : "EXCEPTION",
-                    "situation" : "FOUND_ALREADY_LINKED"
-                },
-                {
-                    "action" : "DELETE",
-                    "situation" : "UNQUALIFIED"
-                },
-                {
-                    "action" : "EXCEPTION",
-                    "situation" : "UNASSIGNED"
-                },
-                {
-                    "action" : "EXCEPTION",
-                    "situation" : "LINK_ONLY"
-                },
-                {
-                    "action" : "IGNORE",
-                    "situation" : "TARGET_IGNORED"
-                },
-                {
-                    "action" : "IGNORE",
-                    "situation" : "SOURCE_IGNORED"
-                },
-                {
-                    "action" : "IGNORE",
-                    "situation" : "ALL_GONE"
-                },
-                {
-                    "action" : "UPDATE",
-                    "situation" : "CONFIRMED"
-                },
-                {
-                    "action" : "UPDATE",
-                    "situation" : "FOUND"
-                },
-                {
-                    "action" : "CREATE",
-                    "situation" : "ABSENT"
-                }
-            ],
-            "correlationQuery" : [
-                {
-                    "linkQualifier" : "default",
-                    "expressionTree" : {
-                        "any" : [
-                            "email"
-                        ]
-                    },
-                    "mapping" : "managedUser_systemUpdatesemaillist__ACCOUNT__",
-                    "type" : "text/javascript",
-                    "file" : "ui/correlateTreeToQueryFilter.js"
-                }
-            ],
-            "consentRequired" : true
-        },
-        {
-            "target" : "managed/device",
-            "source" : "system/penguins/device",
-            "name" : "systemPenguinsDevice_managedDevice",
-            "consentRequired" : false,
-            "icon" : null,
-            "displayName" : "systemPenguinsDevice_managedDevice",
-            "properties" : [
-                {
-                    "source" : "serialNumber",
-                    "target" : "serialNumber"
-                },
-                {
-                    "source" : "brand",
-                    "target" : "brand"
-                },
-                {
-                    "source" : "model",
-                    "target" : "model"
-                },
-                {
-                    "source" : "manufacturer",
-                    "target" : "manufacturer"
-                },
-                {
-                    "source" : "service",
-                    "target" : "service"
-                },
-                {
-                    "target" : "owner",
-                    "source" : "owner",
+                    "source" : "",
                     "transform" : {
                         "type" : "text/javascript",
-                        "globals" : { },
-                        "file" : "owner.js"
+                        "source" : "source.displayName || (source.givenName + ' ' + source.sn);"
+                    },
+                    "target" : "cn"
+                },
+                {
+                    "source" : "userName",
+                    "target" : "uid"
+                },
+                {
+                    "source" : "description",
+                    "target" : "description",
+                    "condition" : {
+                        "type" : "text/javascript",
+                        "source" : "!!object.description"
+                    }
+                },
+                {
+                    "source" : "mail",
+                    "target" : "mail"
+                },
+                {
+                    "source" : "password",
+                    "condition" : {
+                        "type" : "text/javascript",
+                        "source" : "object.password != null"
+                    },
+                    "transform" : {
+                        "type" : "text/javascript",
+                        "source" : "openidm.decrypt(source);"
+                    },
+                    "target" : "userPassword"
+                },
+                {
+                    "source" : "telephoneNumber",
+                    "target" : "telephoneNumber",
+                    "condition" : {
+                        "type" : "text/javascript",
+                        "source" : "!!object.telephoneNumber"
                     }
                 }
             ],
             "policies" : [
                 {
-                    "action" : "EXCEPTION",
+                    "action" : "IGNORE",
                     "situation" : "AMBIGUOUS"
                 },
                 {
-                    "action" : "EXCEPTION",
+                    "action" : "DELETE",
                     "situation" : "SOURCE_MISSING"
                 },
                 {
-                    "action" : "EXCEPTION",
+                    "action" : "CREATE",
                     "situation" : "MISSING"
                 },
                 {
@@ -498,11 +155,11 @@
                     "situation" : "FOUND_ALREADY_LINKED"
                 },
                 {
-                    "action" : "DELETE",
+                    "action" : "IGNORE",
                     "situation" : "UNQUALIFIED"
                 },
                 {
-                    "action" : "EXCEPTION",
+                    "action" : "IGNORE",
                     "situation" : "UNASSIGNED"
                 },
                 {
@@ -526,32 +183,14 @@
                     "situation" : "CONFIRMED"
                 },
                 {
-                    "action" : "UPDATE",
+                    "action" : "LINK",
                     "situation" : "FOUND"
                 },
                 {
                     "action" : "CREATE",
                     "situation" : "ABSENT"
                 }
-            ],
-            "correlationQuery" : [
-                {
-                    "linkQualifier" : "default",
-                    "expressionTree" : {
-                        "any" : [
-                            "serialNumber"
-                        ]
-                    },
-                    "mapping" : "systemPenguinsDevice_managedDevice",
-                    "type" : "text/javascript",
-                    "file" : "ui/correlateTreeToQueryFilter.js"
-                }
-            ],
-            "validSource" : {
-                "type" : "text/javascript",
-                "globals" : { },
-                "source" : "openidm.query('managed/user', {'_queryFilter': '/userName eq \\\"'+source.owner+'\\\"'}).result.length === 1;"
-            }
+            ]
         }
     ]
 }

@@ -12,5 +12,3 @@ Bi-directional LDAP Sync With Internal Repository Sample
 This sample demonstrates bidirectional synchronization between an LDAP directory
 and an OpenIDM repository. For documentation relating to this sample, see
 https://ea.forgerock.com/docs/idm/samples-guide/index.html#chap-sync-with-ldap-bidirectional
-
-I took this as the stating configuration base and added my provisioner files and sync.json --Blair
