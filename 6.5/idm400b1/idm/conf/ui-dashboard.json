@@ -2,9 +2,6 @@
     "dashboard" : {
         "widgets" : [
             {
-                "type" : "workflow"
-            },
-            {
                 "type" : "quickStart",
                 "size" : "medium",
                 "cards" : [
@@ -197,20 +194,6 @@
                     "selected" : "manualRegistrations"
                 }
             ]
-        },
-        {
-            "name" : "Relationships",
-            "isDefault" : false,
-            "widgets" : [
-                {
-                    "type" : "relationship",
-                    "size" : "large",
-                    "chartType" : "collapsibleTree",
-                    "defaultObject" : "role",
-                    "searchProperty" : "name,description"
-                }
-            ],
-            "embeddedDashboard" : false
         }
     ]
 }

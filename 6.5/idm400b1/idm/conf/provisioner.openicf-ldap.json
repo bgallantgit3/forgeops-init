@@ -5,15 +5,15 @@
         "connectorName" : "org.identityconnectors.ldap.LdapConnector"
     },
     "configurationProperties" : {
-        "host" : "opendj.example.com",
-        "port" : "1389",
+        "host" : "&{userstore.host}",
+        "port" : 1389,
         "ssl" : false,
         "principal" : "cn=Directory Manager",
         "credentials" : "&{userstore.password}",
         "baseContexts" : [
-            "ou=subscribers,dc=example,dc=com"
+            "ou=people,&{userstore.basecontext}"
         ],
-        "accountSearchFilter" : "",
+        "accountSearchFilter" : null,
         "accountSynchronizationFilter" : null,
         "groupSearchFilter" : null,
         "groupSynchronizationFilter" : null,
@@ -22,7 +22,7 @@
         "removeLogEntryObjectClassFromFilter" : true,
         "modifiersNamesToFilterOut" : [ ],
         "passwordDecryptionKey" : null,
-        "changeLogBlockSize" : "100",
+        "changeLogBlockSize" : 100,
         "attributesToSynchronize" : [ ],
         "changeNumberAttribute" : "changeNumber",
         "passwordDecryptionInitializationVector" : null,
@@ -40,8 +40,7 @@
             "top",
             "person",
             "organizationalPerson",
-            "inetOrgPerson",
-            "fec-subscriberPerson"
+            "inetOrgPerson"
         ],
         "accountUserNameAttributes" : [
             "uid"
@@ -49,12 +48,12 @@
         "groupMemberAttribute" : "uniqueMember",
         "passwordHashAlgorithm" : null,
         "usePagedResultControl" : true,
-        "blockSize" : "100",
+        "blockSize" : 100,
         "uidAttribute" : "entryUUID",
         "maintainLdapGroupMembership" : false,
         "respectResourcePasswordPolicyChangeAfterReset" : false,
         "baseContextsToSynchronize" : [
-            "ou=subscribers,dc=example,dc=com"
+            "ou=people,&{userstore.basecontext}"
         ]
     },
     "resultsHandlerConfig" : {
@@ -85,21 +84,23 @@
         "SEARCH" : -1
     },
     "syncFailureHandler" : {
-        "maxRetries" : -1,
+        "maxRetries" : 5,
         "postRetryAction" : "logged-ignore"
     },
     "objectTypes" : {
         "account" : {
             "$schema" : "http://json-schema.org/draft-03/schema",
-            "type" : "object",
             "id" : "__ACCOUNT__",
+            "type" : "object",
             "nativeType" : "__ACCOUNT__",
             "properties" : {
                 "dn" : {
                     "type" : "string",
                     "nativeName" : "__NAME__",
                     "nativeType" : "string",
-                    "required" : true
+                    "required" : false,
+                    "flags" : [ ],
+                    "runAsUser" : false
                 },
                 "objectClass" : {
                     "type" : "array",
@@ -196,46 +197,6 @@
                     "nativeType" : "string",
                     "nativeName" : "kbaInfo",
                     "required" : false
-                },
-                "subscribersAge" : {
-                    "type" : "string",
-                    "nativeName" : "fec-subscriberAge",
-                    "nativeType" : "string",
-                    "required" : false,
-                    "flags" : [ ],
-                    "runAsUser" : false
-                },
-                "subscribersFavMovie" : {
-                    "type" : "string",
-                    "nativeName" : "fec-subscriberFavMovie",
-                    "nativeType" : "string",
-                    "required" : false,
-                    "flags" : [ ],
-                    "runAsUser" : false
-                },
-                "subscriberAccountOwner" : {
-                    "type" : "string",
-                    "nativeName" : "fec-subscriberAccountOwner",
-                    "nativeType" : "string",
-                    "required" : false,
-                    "flags" : [ ],
-                    "runAsUser" : false
-                },
-                "subscriberRole" : {
-                    "type" : "string",
-                    "nativeName" : "fec-subscriberRole",
-                    "nativeType" : "string",
-                    "required" : false,
-                    "flags" : [ ],
-                    "runAsUser" : false
-                },
-                "subscriptionType" : {
-                    "type" : "string",
-                    "nativeName" : "fec-subscriberType",
-                    "nativeType" : "string",
-                    "required" : false,
-                    "flags" : [ ],
-                    "runAsUser" : false
                 }
             }
         },
